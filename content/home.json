@@ -44,6 +44,14 @@
           "img": "/img/uploads/desk-banner-mobi-2x-05.webp",
           "mobile_img": "/img/uploads/anyconv.com__mobi-banner-4_mobile.webp",
           "link": "https://mobifans.com.br/pages/sobre"
+        },
+        {
+          "start": "",
+          "end": "",
+          "img": "/img/uploads/mobi-boas-festas-desk.webp",
+          "link": "",
+          "alt": "Mobi Boas Festas 2023",
+          "mobile_img": "/img/uploads/mobi-boas-festas-mobile.webp"
         }
       ],
       "full_width": false
