@@ -52,8 +52,8 @@
       "type": "banners-grid",
       "banners": [
         {
-          "img": "/img/uploads/anyconv.com__banner-mes-do-consumidor-deskmobi-6-.webp",
-          "mobile_img": "/img/uploads/anyconv.com__banner-mes-do-consumidor-mobilemobi-1-.webp"
+          "img": "/img/uploads/bannermod_ghost_marbledesk.png",
+          "mobile_img": "/img/uploads/bannermobghostmarblemobile.png"
         }
       ]
     },
