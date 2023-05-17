@@ -57,10 +57,6 @@
       "full_width": false
     },
     {
-      "type": "custom-html",
-      "html": "    <script src=\"https://apps.elfsight.com/p/platform.js\" async defer></script>\n    <div class=\"elfsight-app-b671d4e4-9c35-4965-a060-879c834db98c\"></div>"
-    },
-    {
       "type": "collection-shelf",
       "shuffle": false,
       "limit": 24,
