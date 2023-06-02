@@ -3,6 +3,14 @@
   "meta_description": "Mobifans - Capas, películas e acessórios para celulares e tablets. Acessórios para smartphones iphone, samsung e toda linha Android, com cabos, fones de ouvidos, power bank e mais. Estamos em Porto Alegre, Novo Hamburgo e Santa Maria.",
   "sections": [
     {
+      "type": "collection-shelf",
+      "shuffle": false,
+      "limit": 24,
+      "page": 1,
+      "collection_id": "5ef1021e14ff772fde7aaa85:categories:Acessórios:/acessorios",
+      "sort": "views"
+    },
+    {
       "type": "banner-slider",
       "autoplay": 10000,
       "slides": [
@@ -47,14 +55,6 @@
         }
       ],
       "full_width": false
-    },
-    {
-      "type": "collection-shelf",
-      "shuffle": false,
-      "limit": 24,
-      "page": 1,
-      "collection_id": "5ef1021e14ff772fde7aaa85:categories:Acessórios:/acessorios",
-      "sort": "views"
     },
     {
       "type": "collection-shelf",
