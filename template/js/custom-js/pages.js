@@ -49,3 +49,15 @@ if (typeof window.setupRd === 'function') {
 }).observe()
 }
 loadAsync()
+
+const loadChat = () => {
+  const script = document.createElement('script')
+  script.src = 'https://www5.directtalk.com.br/clientes/custom/Mobifans/widget.min.js'
+  script.id = 'dt-widget'
+  script.async = true
+  document.body.appendChild(script)
+}
+
+$(window).one('scroll', () => {
+  loadChat()
+})
