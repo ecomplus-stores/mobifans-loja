@@ -155,7 +155,7 @@
     },
     {
       "type": "custom-html",
-      "html": "   <div role=\"main\" id=\"mobifans-newsletter-b772e2c9e2e246127cfa\"></div><script type=\"text/javascript\" src=\"https://d335luupugsy2.cloudfront.net/js/rdstation-forms/stable/rdstation-forms.min.js\"></script><script type=\"text/javascript\"> new RDStationForms('mobifans-newsletter-b772e2c9e2e246127cfa', 'UA-28628232-1').createForm();</script>"
+      "html": "   <div role=\"main\" id=\"mobifans-newsletter-b772e2c9e2e246127cfa\"></div><script type=\"text/javascript\">window.setupRd = function () {setTimeout(function () { new RDStationForms('mobifans-newsletter-b772e2c9e2e246127cfa', 'UA-28628232-1').createForm(); }, 200)} </script>"
     }
   ]
 }

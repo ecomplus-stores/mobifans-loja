@@ -4,7 +4,7 @@ const footer = _.cms('footer') || {}
 const contacts = _.cms('contacts') || {}
 const themeCustom = _.settings.theme.custom || ''
 %>
-
+<div id="popup-rd"></div>
 <footer class="footer py-3 py-lg-4 py-xl-5">
   <div class="container">
     <div class="row">
@@ -60,12 +60,12 @@ const themeCustom = _.settings.theme.custom || ''
 
           <% if (footer.contacts.socials) { %>
             <p class="footer__social">
+              <div class="footer__title">
+                Redes Sociais
+              </div>
               <%- await include('@/layout/inc/networks', { _, contacts }) %>
             </p>
           <% } %>
-          <div id="fb-root"></div>
-          <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v7.0&appId=167752976907076&autoLogAppEvents=1" nonce="zO5Yb9lm"></script>
-          <div class="fb-page" data-href="https://www.facebook.com/mobifans.oficial/" data-tabs="" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/mobifans.oficial/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/mobifans.oficial/">Mobifans</a></blockquote></div>
         </div>
       </div>
 
