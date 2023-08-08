@@ -154,10 +154,6 @@
     },
     {
       "type": "custom-html",
-      "html": "<script src=\"https://apps.elfsight.com/p/platform.js\" async defer></script>\n<div class=\"elfsight-app-05a4d021-2644-4518-bb65-d2c1084710dc\"></div>"
-    },
-    {
-      "type": "custom-html",
       "html": "   <div role=\"main\" id=\"mobifans-newsletter-b772e2c9e2e246127cfa\"></div><script type=\"text/javascript\">window.setupRd = function () {setTimeout(function () { new RDStationForms('mobifans-newsletter-b772e2c9e2e246127cfa', 'UA-28628232-1').createForm(); }, 200)} </script>"
     }
   ]
