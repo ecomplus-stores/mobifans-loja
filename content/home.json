@@ -49,17 +49,6 @@
       "full_width": false
     },
     {
-      "type": "banners-grid",
-      "banners": [
-        {
-          "img": "/img/uploads/banner-dia-dos-pais-mobifans2023-desktop.webp",
-          "link": "https://mobifans.com.br/colecoes",
-          "alt": "Dia dos Pais Mobifans 2023",
-          "mobile_img": "/img/uploads/banner-dia-dos-pais-mobifans2023-mobile.webp"
-        }
-      ]
-    },
-    {
       "type": "collection-shelf",
       "shuffle": true,
       "limit": 12,
