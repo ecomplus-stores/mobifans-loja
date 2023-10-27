@@ -146,16 +146,13 @@
       "html": "   <div role=\"main\" id=\"mobifans-newsletter-b772e2c9e2e246127cfa\"></div><script type=\"text/javascript\">window.setupRd = function () {setTimeout(function () { new RDStationForms('mobifans-newsletter-b772e2c9e2e246127cfa', 'UA-28628232-1').createForm(); }, 200)} </script>"
     },
     {
-      "type": "banner-slider",
-      "autoplay": 0,
-      "full_width": false,
-      "slides": [
+      "type": "banners-grid",
+      "banners": [
         {
-          "start": "",
-          "end": "",
           "img": "/img/uploads/anyconv.com__banner-instagram-mobi-01.webp",
-          "link": "https://www.instagram.com/mobifans/",
-          "mobile_img": "/img/uploads/banner-instagram-mobi-02.png"
+          "mobile_img": "/img/uploads/anyconv.com__banner-instagram-mobi-02.webp",
+          "alt": "Mobi Instagram 2023",
+          "link": "https://www.instagram.com/mobifans/"
         }
       ]
     }
