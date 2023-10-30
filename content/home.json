@@ -4,46 +4,15 @@
   "sections": [
     {
       "type": "banner-slider",
-      "autoplay": 10000,
+      "autoplay": 5000,
       "slides": [
         {
-          "start": "",
+          "start": "2023-10-30T19:18:01.262Z",
           "end": "",
-          "img": "/img/uploads/desk-banner-mobi-capas-coloridas.webp",
-          "mobile_img": "/img/uploads/mobile-banner-capas-coloridas.webp",
-          "link": "/capas-colors-elfo",
-          "alt": "Capas para celular coloridas coleção elfo"
-        },
-        {
-          "start": "",
-          "end": "",
-          "img": "/img/uploads/desk-banner-mobi-capas-corrente.webp",
-          "mobile_img": "/img/uploads/mobile-banner-capas-corrente.webp",
-          "link": "/capas-com-corrente",
-          "alt": "Capas para celular correntes"
-        },
-        {
-          "start": "",
-          "end": "",
-          "img": "/img/uploads/desk-banner-mobi-acessorios.webp",
-          "mobile_img": "/img/uploads/mobile-banner-acessorios.webp",
-          "link": "/acessorios",
-          "alt": "Acessórios para smartphone"
-        },
-        {
-          "start": "",
-          "end": "",
-          "img": "/img/uploads/desk-banner-mobi-popsockets.webp",
-          "mobile_img": "/img/uploads/mobile-banner-popsockets.webp",
-          "link": "/popsockets",
-          "alt": "Os melhores popsockets para você"
-        },
-        {
-          "start": "",
-          "end": "",
-          "img": "/img/uploads/desk-banner-mobi-mobi.webp",
-          "mobile_img": "/img/uploads/mobile-banner-mobi-mobi.webp",
-          "link": "https://mobifans.com.br/pages/sobre"
+          "img": "/img/uploads/banners-home-mobifans-04.webp",
+          "link": "https://mobifans.com.br/capa-customic-impactor-clear-holo-apple",
+          "alt": "Capa Customic Impactor Clear Holo Apple",
+          "mobile_img": "/img/uploads/banners-home-mobifans_v-copy-8.webp"
         }
       ],
       "full_width": false
