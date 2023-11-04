@@ -4,8 +4,14 @@
   "sections": [
     {
       "type": "banner-slider",
-      "autoplay": 4000,
+      "autoplay": 0,
       "slides": [
+        {
+          "start": "",
+          "end": "",
+          "img": "/img/uploads/banner_principal-1920x480px.webp",
+          "mobile_img": "/img/uploads/banner_principal_mobile-576x834px-duo.webp"
+        },
         {
           "start": "2023-10-30T19:18:01.262Z",
           "end": "",
@@ -32,6 +38,15 @@
         }
       ],
       "full_width": false
+    },
+    {
+      "type": "banners-grid",
+      "banners": [
+        {
+          "img": "/img/uploads/banner_combos-1500x200px-1-.webp",
+          "mobile_img": "/img/uploads/banner_principal_mobile-576x834px_1-1-.webp"
+        }
+      ]
     },
     {
       "type": "collection-shelf",
