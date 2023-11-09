@@ -125,7 +125,7 @@ import {
       },
 
       testDelayShipping () {
-        const delayItems = window.ids_adiamento
+        const delayItems = window.ids_adiamento || []
         return Boolean(delayItems.find(id => {
             return this.shippedItems.find(item => {
                return item._id == id

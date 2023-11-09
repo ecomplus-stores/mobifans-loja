@@ -170,7 +170,7 @@ import {
         let body = this.resultItems[0];
         let nameProduct = body.name;
         let getListModels = body.variations;
-        let term = this.searchTerm;
+        let term = this.term;
         let listNomeProduto = {nome: "", modelo: "", marca: "", cor: "", foto: [], specifictions: ""};
   
         //setando foto defaut e hover 
@@ -190,16 +190,14 @@ import {
           if ($(".page-title__head h1").length > 0) { 
             term = $(".page-title__head h1").text();
           }
-        }      
+        }     
   
         if(term !== undefined && term !== null){
           term = term.toLowerCase();
           nameProduct = nameProduct.toLowerCase();
-  
           if(getListModels !== undefined){
   
-            getListModels.map( (variation) => {    
-  
+            getListModels.map((variation) => {    
             
               if(variation !== undefined){
                 let modeloVariation = "";

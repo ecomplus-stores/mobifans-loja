@@ -41,8 +41,8 @@
           </div>
 
           <slot name="title">
-            <span class="spec-search" style="display: flex; justify-content: center;" v-if="isSearchingPhoneModel.specifictions">
-              {{ isSearchingPhoneModel.specifictions }}
+            <span class="spec-search" style="display: flex; justify-content: center;" v-if="isSearchingPhoneModel.specifictions || isSearchingPhoneModel.modelo">
+              {{ isSearchingPhoneModel.specifictions || isSearchingPhoneModel.modelo}}
             </span>
            
             <component

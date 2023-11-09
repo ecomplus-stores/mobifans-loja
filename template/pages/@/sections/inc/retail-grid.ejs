@@ -11,6 +11,11 @@ if (!opt.items) {
   try {
     await search.fetch()
     items = search.getItems()
+    if (opt.productIds) {
+      items.sort((a, b) => {
+        return opt.productIds.indexOf(a._id) < opt.productIds.indexOf(b._id) ? -1 : 1
+      })
+    }
   } catch (err) {
     if (_.pageName === 'home' || (err.response && err.response.status === 404)) {
       items = []
