@@ -359,8 +359,9 @@
           <div class="row">
             <div
               class="col-6 col-md-4 col-lg-3"
-              v-for="product in suggestedItems"
+              v-for="product in filteredItems"
               :key="product._id"
+              v-if="product.quantity"
             >
               <slot
                 name="product-card"

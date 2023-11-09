@@ -1,0 +1,106 @@
+<div class="buy-together">
+    <transition enter-active-class="animated fadeInDown">
+      <div v-if="hasLoadedItems && recommendedItems.length && buyTogetherItems.length">
+        <div class="buy-together__title">
+          <div class="buy-together__discount lead mb-3">
+            <strong> Adicione acessórios </strong>
+            <span
+              v-if="discount"
+              class="badge badge-success"
+            >
+              {{ formatMoney(discount) }} <span>OFF</span>
+            </span>
+          </div>
+        </div>
+  
+        <div class="buy-together__row row">
+          <div
+            class="col-12"
+          >
+            <div class="row">
+              <ul
+                class="buy-together__list--new"
+              > 
+                <li
+                  v-if="buyTogetherItems.length"
+                  v-for="item in buyTogetherItems"
+                  :key="item._id"
+                  class="buy-together__item--new col-12 d-flex"
+                >
+                <a-link
+                  v-if="item._id"
+                  :href="item.slug ? `/${item.slug}` : '/black-friday-customic-2023'"
+                  target="_blank"
+                  class="d-flex flex-grow buy-together__item__link"
+                >
+                  <div class="buy-together__item__thumbnail--new">
+                    <a-picture
+                      v-if="getImg(item)"
+                      :src="getImg(item).url"
+                      :alt="getImg(item).alt || item.name"
+                    />
+                  </div>
+                  <div class="buy-together__item__name--new">
+                    <small>{{ getName(item) }}</small>
+                    <br>
+                    <span
+                      v-if="onPromotion(item)"
+                      class="buy-together__item__offer-stamp"
+                    >
+                      <i class="i-arrow-down"></i> <b>{{ Math.round(((item.base_price - getPrice(item)) * 100) / item.base_price) }}</b>%
+                    </span>
+                  </div>
+                  <div class="buy-together__item__price--new">
+                    <a-prices
+                      v-if="item.price"
+                      :product="item"
+                      :is-literal="false"
+                      :is-big="false"
+                      :show-price-options="true"
+                    />
+                    <a-prices
+                      v-else
+                      :product="{...item, price: 0}"
+                      :is-literal="false"
+                      :is-big="false"
+                      :show-price-options="true"
+                    />
+                  </div>   
+                </a-link>
+                <div class="buy-together__item__checkbox">
+                  <div class="align-self-center mx-1">
+                    <label :for="item._id" class="checkbox d-flex flex-row flex-align-center mx-0 my-0">
+                      <input :value="JSON.stringify(item)" @change="ev => sendProducts(ev.target.value, ev.target.checked)" type="checkbox" :id="item._id">
+                      <span class="check-square"></span>
+                    </label>
+                  </div>
+                </div>
+                
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="buy-together__cta col-auto" v-if="false">
+            <a-prices
+              :product="{ price: subtotal - discount, base_price: subtotal }"
+              :is-literal="true"
+              :is-big="true"
+            />
+            <button
+              v-if="canAddToCart || variationSelected"
+              class="btn btn-lg btn-primary mt-3"
+              @click="buy"
+            >
+              <i class="i-shopping-basket mr-1"></i>
+              {{ i19buyTogether }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
+  
+    <transition leave-active-class="animated fadeOut">
+      <slot v-if="!hasLoadedItems"/>
+    </transition>
+  </div>
+  

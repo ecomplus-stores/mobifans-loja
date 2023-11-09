@@ -11,7 +11,9 @@ import {
   name as getName,
   inStock as checkInStock,
   onPromotion as checkOnPromotion,
-  price as getPrice
+  price as getPrice,
+  specValueByText as getSpecValueByText,
+  variationsGrids as getVariationsGrids
 } from '@ecomplus/utils'
 
 import Vue from 'vue'
@@ -100,6 +102,13 @@ export default {
     i19outOfStock: () => i18n(i19outOfStock),
     i19unavailable: () => i18n(i19unavailable),
 
+    colorOptions () {
+      const body = { ...this.body }
+      body.variations = this.specModel
+      const variationGrids = getVariationsGrids(body)
+      return variationGrids.colors && variationGrids.colors.slice(0, 6)
+    },
+
     isSearchingPhoneModel (){
       let body = this.body;
       let nameProduct = this.body.name;
@@ -126,8 +135,6 @@ export default {
         }
       }      
 
-      //console.log('nameProduct', nameProduct)
-
       if(term !== undefined && term !== null){
         term = term.toLowerCase();
         nameProduct = nameProduct.toLowerCase();
@@ -136,6 +143,7 @@ export default {
 
           getListModels.map( (variation) => {    
 
+          
             if(variation !== undefined){
               let modeloVariation = "";
               let marcaVariation = "";
@@ -143,17 +151,18 @@ export default {
               let modeloVariationInitial = "";
               let pictureId = variation.picture_id;
 
-              //console.log('variation.specifications - name4gr', variation.name)
-              //console.log('variation.specifications25', variation)
-
+              
               //se array nao for vazio 
-              if(variation.specifications.hasOwnProperty('modelo')){
-                if( variation.specifications.modelo.length > 0){
-                  modeloVariation = variation.specifications.modelo[0].text;
-                  modeloVariationInitial = variation.specifications.modelo[0].text;
-                  modeloVariation = modeloVariation.toLowerCase();
-                }
+              if (variation && variation.specifications && variation.specifications.modelo && variation.specifications.modelo.length > 0){
+                modeloVariation = variation.specifications.modelo[0].text;
+                modeloVariationInitial = variation.specifications.modelo[0].text;
+                modeloVariation = modeloVariation.toLowerCase();
               }
+
+              //console.log(modeloVariationInitial)
+              //console.log(variation.name)
+              //console.log(variation)
+              //console.log(body.pictures)
 
 
               if (variation.specifications.marca_do_aparelho !== "" && variation.specifications.marca_do_aparelho !== undefined && variation.specifications.marca_do_aparelho !== null) {
@@ -179,11 +188,11 @@ export default {
               }
 
               //console.log("nameProduct", nameProduct);
-              //console.log("marcaVariation332", marcaVariation);
+              //console.log("marcaVariation", marcaVariation);
               //console.log("modeloVariation", modeloVariation);
 
               //se tem o modelo ja seta a marca 
-              if (term.indexOf(modeloVariation) !== -1 && marcaVariation !== "") {              
+              if (term.indexOf(modeloVariation) !== -1 && marcaVariation !== "") {
                 modeloVariation =
                   modeloVariation.charAt(0).toUpperCase() +
                   modeloVariation.slice(1);
@@ -196,73 +205,77 @@ export default {
                 }
 
                 listNomeProduto.modelo = modeloVariationInitial;
-                
+                listNomeProduto.marca = marcaVariation;
 
-                if(marcaVariation !== undefined){
-                  listNomeProduto.marca = marcaVariation;
-                  switch (marcaVariation) {
-                    case "Samsung":
-                      body.pictures.map(function(product, index) {
-                        if (product._id == pictureId) {
-                          let foto = (product.normal || product.zoom).url;
-                          listNomeProduto.foto = [];
-                          listNomeProduto.foto.unshift(foto);
-                        }
-                      });
-                      break;
-                    case "Apple":
-                      body.pictures.map(function(product, index) {
-                        if (product._id == pictureId) {
-                          let foto = (product.normal || product.zoom).url;
-                          listNomeProduto.foto = [];
-                          listNomeProduto.foto.unshift(foto);
-                        }
-                      });
-                      break;
-                    case "Motorola":
-                      body.pictures.map(function(product, index) {
-                        if (product._id == pictureId) {
-                          let foto = (product.normal || product.zoom).url;
-                          listNomeProduto.foto = [];
-                          listNomeProduto.foto.unshift(foto);
-                        }
-                      });
-                      break;
-                    case "LG":
-                      body.pictures.map(function(product, index) {
-                        if (product._id == pictureId) {
-                          let foto = (product.normal || product.zoom).url;
-                          listNomeProduto.foto = [];
-                          listNomeProduto.foto.unshift(foto);
-                        }
-                      });
-                      break;
-                    case "Huawei":
-                      body.pictures.map(function(product, index) {
-                        if (product._id == pictureId) {
-                          let foto = (product.normal || product.zoom).url;
-                          listNomeProduto.foto = [];
-                          listNomeProduto.foto.unshift(foto);
-                        }
-                      });
-                      break;
-                    case "Xiaomi":
-                      body.pictures.map(function(product, index) {
-                        if (product._id == pictureId) {
-                          let foto = (product.normal || product.zoom).url;
-                          listNomeProduto.foto = [];
-                          listNomeProduto.foto.unshift(foto);
-                        }
-                      });
-                      break;
-                  }
+                switch (marcaVariation) {
+                  case "Samsung":
+                    body.pictures.map(function(product, index) {
+                      if (product._id == pictureId) {
+                        let foto = (product.normal || product.zoom).url;
+                        listNomeProduto.foto = [];
+                        listNomeProduto.foto.unshift(foto);
+                      }
+                    });
+                    break;
+                  case "Apple":
+                    body.pictures.map(function(product, index) {
+                      if (product._id == pictureId) {
+                        let foto = (product.normal || product.zoom).url;
+                        listNomeProduto.foto = [];
+                        listNomeProduto.foto.unshift(foto);
+                      }
+                    });
+                    break;
+                  case "Motorola":
+                    body.pictures.map(function(product, index) {
+                      if (product._id == pictureId) {
+                        let foto = (product.normal || product.zoom).url;
+                        listNomeProduto.foto = [];
+                        listNomeProduto.foto.unshift(foto);
+                      }
+                    });
+                    break;
+                  case "LG":
+                    body.pictures.map(function(product, index) {
+                      if (product._id == pictureId) {
+                        let foto = (product.normal || product.zoom).url;
+                        listNomeProduto.foto = [];
+                        listNomeProduto.foto.unshift(foto);
+                      }
+                    });
+                    break;
+                  case "Huawei":
+                    body.pictures.map(function(product, index) {
+                      if (product._id == pictureId) {
+                        let foto = (product.normal || product.zoom).url;
+                        listNomeProduto.foto = [];
+                        listNomeProduto.foto.unshift(foto);
+                      }
+                    });
+                    break;
+                  case "Xiaomi":
+                    body.pictures.map(function(product, index) {
+                      if (product._id == pictureId) {
+                        let foto = (product.normal || product.zoom).url;
+                        listNomeProduto.foto = [];
+                        listNomeProduto.foto.unshift(foto);
+                      }
+                    });
+                    break;
                 }
-
               }
 
               //se nao tem a variacao de marca
               if (term.indexOf(modeloVariation) !== -1) {
                 listNomeProduto.modelo = modeloVariationInitial;
+
+                body.pictures.map(function(product, index) {
+                  if (product._id == pictureId) {
+                    let foto = (product.normal || product.zoom).url;
+                    listNomeProduto.foto = [];
+                    listNomeProduto.foto.push(foto);
+                  }
+                });
               }              
             }
           })
@@ -277,7 +290,7 @@ export default {
       //console.log("listNomeProduto", listNomeProduto);
 
       if(listNomeProduto.cor !== "" && listNomeProduto.modelo !== ""){
-        listNomeProduto.specifictions = ` / ${listNomeProduto.marca} / ${listNomeProduto.modelo} / ${listNomeProduto.cor}`;
+        //listNomeProduto.specifictions = `${listNomeProduto.marca} / ${listNomeProduto.modelo} / ${listNomeProduto.cor}`;
 
         this.marcaSearch = `?marca=${listNomeProduto.marca}`;
 
@@ -287,11 +300,11 @@ export default {
 
       }
       else if(listNomeProduto.cor !== ""){
-        listNomeProduto.specifictions = ` / ${listNomeProduto.cor}`;
+        listNomeProduto.specifictions = `${listNomeProduto.cor}`;
         this.corSearch = `&cor=${listNomeProduto.cor}`;
 
       }else if(listNomeProduto.modelo !== "" && listNomeProduto.marca !== ""){
-        listNomeProduto.specifictions = ` / ${listNomeProduto.marca} / ${listNomeProduto.modelo}`;
+        //listNomeProduto.specifictions = `${listNomeProduto.marca} / ${listNomeProduto.modelo}`;
         this.marcaSearch = `?marca=${listNomeProduto.marca}`;
 
         let listNomeProdutoModelo = listNomeProduto.modelo.replaceAll(' ','-');
@@ -299,20 +312,25 @@ export default {
         this.modeloSearch = `&modelo=${listNomeProdutoModelo}`;
 
       }else if(listNomeProduto.marca !== ""){
-        listNomeProduto.specifictions = ` / ${listNomeProduto.marca}`; 
+        listNomeProduto.specifictions = listNomeProduto.marca; 
         this.marcaSearch = `?marca=${listNomeProduto.marca}`;
       }else if(listNomeProduto.modelo !== "" && listNomeProduto.marca === ""){
-        listNomeProduto.specifictions = ` / ${listNomeProduto.modelo}`;
+        listNomeProduto.specifictions = listNomeProduto.modelo;
 
         let listNomeProdutoModelo = listNomeProduto.modelo.replaceAll(' ','-');
         this.modeloSearch = `?modelo=${listNomeProdutoModelo}`;
       }
 
-      //console.log('listNomeProdutoxx - name', listNomeProduto.nome)
-      //console.log('listNomeProduto9', listNomeProduto)
-
       return listNomeProduto;
 
+    },
+
+    specModel () {
+      if (this.isSearchingPhoneModel.specifictions) {
+        return this.body.variations.filter(variation => variation.specifications['modelo'][0].text === this.isSearchingPhoneModel.specifictions && variation.quantity > 0)
+      }
+      return this.body && this.body.variations || []
+      
     },
 
     ratingHtml () {
@@ -365,6 +383,13 @@ export default {
       delete this.body.inventory_records
       delete this.body.price_change_records
       this.isFavorite = checkFavorite(this.body._id, this.ecomPassport)
+    },
+
+    getColorOptionBg (optionText) {
+      const rgbs = optionText.split(',').map(colorName => {
+        return getSpecValueByText(this.body.variations, colorName.trim(), 'colors')
+      })
+      return `background:${rgbs[0]}`
     },
 
     fetchItem () {

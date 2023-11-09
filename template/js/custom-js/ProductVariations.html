@@ -33,15 +33,16 @@
       <button
         v-for="optionText in options"
         class="variations__option btn btn-light"
+        data-test="JSON.stringfy(options)"
         :class="[
           selectedOptions[grid] === optionText ? 'variations__option--selected' : null, 
           `variations__option--${optionText}`, 
-          filteredGrids[grid].includes(optionText) ? null : 'disabled'
+          filteredGrids[grid].includes(optionText) || (optionText.includes('(novo)')) ? null : 'disabled'
         ]"
         :style="grid === 'colors' ? getColorOptionBg(optionText) : null"
         @click="selectOption(optionText, grid, index)"
       >
-        {{ optionText }} 
+        {{ optionText }}
       </button>
     </template>
 
@@ -59,7 +60,8 @@
         :selected="selectedOptions[grid] === optionText"
         :disabled="!filteredGrids[grid].includes(optionText)"
       >
-        {{ optionText }}
+        {{ optionText }} 
+        <span style="color: red" v-if="!filteredGrids[grid].includes(optionText)">(Esgotado)</span>
       </option>
     </select>
   </div>

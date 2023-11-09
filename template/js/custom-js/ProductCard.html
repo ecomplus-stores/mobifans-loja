@@ -1,4 +1,5 @@
 <div
+  v-if="isInStock"
   class="product-card"
   :class="{
     'product-card--inactive': body._id && !isActive,
@@ -40,12 +41,37 @@
           </div>
 
           <slot name="title">
+            <span class="spec-search" style="display: flex; justify-content: center;" v-if="isSearchingPhoneModel.specifictions">
+              {{ isSearchingPhoneModel.specifictions }}
+            </span>
+           
             <component
               :is="headingTag"
               class="product-card__name"
             >   
-              {{ name }} {{ isSearchingPhoneModel.specifictions }}         
+              {{ name }}          
             </component>
+          </slot>
+
+          <slot name="variations-card" v-if="colorOptions">
+            <div     
+                class="product-card__colors"
+              >
+                <span
+                  v-for="colorName in colorOptions"
+                  class="product-card__color-option"
+                  :class="`product-card__color-option--${colorName}`"
+                  :style="getColorOptionBg(colorName)"
+                >
+                  {{ colorName }}
+                </span>
+                <span
+                  v-if="colorOptions.length === 6"
+                  class="product-card__color-option product-card__color-option--plus"
+                >
+                  <i class="i-plus"></i>
+                </span>
+            </div>
           </slot>
         </a-link>
       </slot>
@@ -76,6 +102,7 @@
           {{ i19outOfStock }}
         </p>
       </slot>
+
 
       <template v-else>
         <slot name="prices">
@@ -118,6 +145,7 @@
             </button>
           </slot>
         </div>
+
       </template>      
       
       <slot name="favorite">
