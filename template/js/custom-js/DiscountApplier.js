@@ -18,8 +18,8 @@ import {
   import AAlert from '@ecomplus/storefront-components/src/AAlert.vue'
   
   const addFreebieItems = (ecomCart, productIds) => {
-    const hasSpecialGift = productIds.includes('6544ed9e2cd6b6595995bbf1')
     if (Array.isArray(productIds)) {
+      const hasSpecialGift = productIds.includes('6544ed9e2cd6b6595995bbf1')
       let capaIndex, model, variationBrinde
       let isblackOffer = false
       ecomCart.data.items.forEach(({ _id, product_id: productId, flags, name, categories }) => {
@@ -39,6 +39,7 @@ import {
         const canAddFreebie = !ecomCart.data.items.find(item => {
           return item.product_id === productId && item.flags && item.flags.includes('freebie')
         })
+        console.log(canAddFreebie)
         if (canAddFreebie && (!hasSpecialGift || isblackOffer)) {
           store({ url: `/products/${productId}.json` })
             .then(({ data }) => {
@@ -64,7 +65,7 @@ import {
                     ...data,
                     flags: ['freebie', '__tmp']
                   },
-                  variationBrinde._id,
+                  variationBrinde && variationBrinde._id,
                   productIds.reduce((qnt, _id) => {
                     return _id === productId ? qnt + 1 : qnt
                   }, 0)
