@@ -80,21 +80,17 @@
   },
   "stamps": [
     {
-      "src": "/img/uploads/google-selo-1-300dpi.png",
+      "src": "/img/uploads/google-selo-1-.webp",
       "link": "https://transparencyreport.google.com/safe-browsing/search?url=mobifans.com.br"
     },
     {
-      "src": "/img/uploads/selo-norton-secured-1-300dpi.png",
+      "src": "/img/uploads/selo-norton-secured-1-.webp",
       "link": "https://safeweb.norton.com/report/show?url=mobifans.com.br"
     },
     {
-      "src": "/img/uploads/l7i8aqh_300_dpi.png",
+      "src": "/img/uploads/selo-ssl-1-.webp",
       "link": "https://www.ssllabs.com/ssltest/analyze.html?d=mobifans.com.br",
       "alt": " "
-    },
-    {
-      "src": "/img/uploads/rxvm87b-300dpi.png",
-      "link": "https://transparencyreport.google.com/safe-browsing/search?url=mobifans.com.br"
     }
   ],
   "payment_methods": {
