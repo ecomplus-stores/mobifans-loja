@@ -1,8 +1,13 @@
 {
   "marketing_stripe": {
-    "text": "🚀 Frete Grátis acima de R$120 ❤️",
-    "link": "https://mobifans.com.br/colecoes",
-    "color": "#fafafa"
+     "market_list": [
+      {
+        "texto": "🚀 Frete Grátis acima de R$ 120 ❤️ ",
+        "link": "https://mobifans.com.br/colecoes",
+      }
+    ] 
+    "color": "#fafafa",
+    "autoplay": 4000
   },
   "contacts_stripe": {
     "pages": [
