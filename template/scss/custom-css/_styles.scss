@@ -315,3 +315,52 @@ opacity: .5;
 .buy-together__item__offer-stamp {
 padding: 3px;
 }
+
+.shelfs-nav__title {
+  font-weight: Bold;
+  letter-spacing: -1px;
+  font-size: 26px;
+  margin: var(--spacer-4) auto;
+  padding: 0 4rem;
+  max-width: var(--content-max-width);
+}
+
+.shelfs-nav__tab {
+  text-align: center;
+}
+.shelfs-nav__tabs li {
+  min-width: unset !important;
+}
+
+.buy-together__item__offer-stamp {
+  padding: 3px;
+}
+
+#topSlide  li,
+#topSlide a{
+  text-align:center;
+}
+
+.product-card__offer-stamp {
+  position: inherit !important;
+  color: rgb(255, 255, 255) !important;
+  background: rgb(204, 12, 57) !important;
+  border-radius: 2px;
+  padding: 4px 6px;
+  margin-right: 6px;
+  b {
+    color: #fff !important;
+  }
+}
+
+.product-card__link {
+  text-decoration: none !important;
+}
+
+.product-card__offer {
+  margin-top: 10px !important;
+}
+
+.product-card__offer-text {
+  color: rgb(204, 12, 57) !important;
+}

@@ -6,7 +6,7 @@
     "buyText": "Adicionar ao carrinho",
     "buy": "",
     "strHasQuantitySelector": "_",
-    "strHasPromotionTimer": "_",
+    "strHasPromotionTimer": "true",
     "lowQuantityToWarn": 2,
     "maxVariationOptionsBtns": 6,
     "quoteInfo": ""

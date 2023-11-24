@@ -55,22 +55,38 @@ const hasAllDepartments = header.menu_all_departments
 <div id="overlay" class="fade"></div>
 
 <div class="top-bar">
-  <% if (header.marketing_stripe) { %>
-    <% if (header.marketing_stripe.text) { %>
-      <% if (header.marketing_stripe.link) { %>
-        <a
-          class="top-bar__countdown"
-          style="<%= marketingStripeStyle %>"
-          href="<%= header.marketing_stripe.link %>"
-        >
-          <%= header.marketing_stripe.text %>
-        </a>
-      <% } else { %>
-        <div class="top-bar__countdown" style="<%= marketingStripeStyle %>">
-          <%= header.marketing_stripe.text %>
+  <% if (header.marketing_stripe && header.marketing_stripe.market_list && header.marketing_stripe.market_list.length) { %>
+    <div id="topSlide" class="top-bar__countdown" style="<%= marketingStripeStyle %>">  
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <div
+              class="glide"
+              data-wait-mutation="false"
+              data-autoplay="<%= header.marketing_stripe.autoplay %>"
+              data-per-view="1"
+              data-per-view-md="1"
+              data-per-view-sm="1"
+            >
+              <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides"> 
+                  <% header.marketing_stripe.market_list.forEach(({ texto, link }) => { 
+                    console.log(texto, link)
+                    if (texto) {
+                    %>
+                    <li class="glide__slide">
+                      <a href="<%- link ? link : '/' %>">
+                        <%= texto %>
+                      </a>
+                    </li>   
+                  <% }}) %>           
+                </ul>
+              </div>
+            </div>
+          </div>         
         </div>
-      <% } %>
-    <% } %>
+      </div>
+    </div>  
   <% } %>
 
   <div class="top-bar__nav d-none d-md-block">

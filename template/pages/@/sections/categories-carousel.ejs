@@ -1,0 +1,59 @@
+<% if(Array.isArray(opt.banners) && opt.banners.length) { %>
+    <% if (opt.title) { %>
+      <div class="container">
+        <h2 id="title-site" class="products-carousel__title"><%= opt.title %></h2>
+      </div>
+    <% } %>
+    <section class="brands-carousel container">
+      <div
+        class="glide"
+        data-autoplay="<%= opt.autoplay %>"
+        data-per-view="4"
+        data-per-view-md="4"
+        data-per-view-sm="3"
+        data-per-view-xs="2"
+      >
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides brands-carousel__list">
+            <% opt.banners.forEach(({ img, link, alt }) => { %>
+              <li class="glide__slide brands-carousel__item">
+                <a href="<%= link ? `/${link}` : '#' %>">
+                  <% if (img) { let { width, height } = _.tryImageSize(img) %>
+                    <img data-src="<%= img %>" width="<%= width %>" height="<%= height %>" alt="<%= alt %>" class="img-fluid lozad">
+                  <% } else { %>
+                    <h4><%= alt %></h4>
+                  <% } %>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+  
+          <% if (opt.banners.length) { %>
+            <div
+              class="glide__arrows glide__arrows--outer"
+              data-glide-el="controls"
+            >
+              <button
+                class="btn glide__arrow glide__arrow--left"
+                data-glide-dir="<"
+                aria-label="<%= _.dictionary('previous') %>"
+              >
+                <i class="i-arrow-left"></i>
+              </button>
+              <button
+                class="btn glide__arrow glide__arrow--right"
+                data-glide-dir=">"
+                aria-label="<%= _.dictionary('next') %>"
+              >
+                <i class="i-arrow-right"></i>
+              </button>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+  
+    <%
+  }
+  %>
+  
