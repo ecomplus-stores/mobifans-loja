@@ -27,7 +27,7 @@ let marketingStripeStyle = ''
 let categories = []
 let isCategoriesNavFull
 if (header.categories_list) {
-  if (header.categories_list.featured.length) {
+  if (header.categories_list.featured && header.categories_list.featured.length) {
     // selected categories/collections/brands
     categories = header.categories_list.featured.map(pathAndName => {
       const [path, name] = pathAndName.split('?')
