@@ -3,6 +3,7 @@
 const header = _.cms('header') || {}
 const contacts = _.cms('contacts') || {}
 const themeCustom = _.settings.theme.custom || ''
+console.log(header)
 
 // social networks handled by contacts
 const networks = [
@@ -17,11 +18,11 @@ const networks = [
 
 // marketing stripe custom styles
 let marketingStripeStyle = ''
-;['background', 'color'].forEach(prop => {
+/* ;['background', 'color'].forEach(prop => {
   if (header.marketing_stripe[prop]) {
     marketingStripeStyle += `${prop}:${header.marketing_stripe[prop]};`
   }
-})
+}) */
 
 // list featured categories
 let categories = []
@@ -71,7 +72,6 @@ const hasAllDepartments = header.menu_all_departments
               <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides"> 
                   <% header.marketing_stripe.market_list.forEach(({ texto, link }) => { 
-                    console.log(texto, link)
                     if (texto) {
                     %>
                     <li class="glide__slide">
@@ -97,7 +97,7 @@ const hasAllDepartments = header.menu_all_departments
             <a href="mailto:contato@mobifans.com.br" target="_blank" rel="noopener">
                   contato@mobifans.com.br
             </a>
-            <% if (header.contacts_stripe.pages) { %>
+            <% if (header.contacts_stripe && header.contacts_stripe.pages) { %>
               <div class="<%= (themeCustom === 'ecom-beauty' && isCategoriesNavFull) ? 'd-lg-none' : '' %>">
                 <% header.contacts_stripe.pages.forEach(({ link, title }) => { %>
                   <a href="<%= link %>"><%= title %></a>
@@ -105,7 +105,7 @@ const hasAllDepartments = header.menu_all_departments
               </div>
             <% } %>
           </nav>
-          <% if (header.contacts_stripe.phone_wpp) { %>
+          <% if (header.contacts_stripe && header.contacts_stripe.phone_wpp) { %>
             <div class="top-bar__contacts-container">
               <% if (contacts.whatsapp) { %>
                 <a href="javascript:;" target="_blank" rel="noopener" class="whatsapp-link"
@@ -127,7 +127,7 @@ const hasAllDepartments = header.menu_all_departments
         <div class="col">
           <img src="/img/uploads/logo_mobifans.png" alt="Mobifans" text="Mobifans" style="width: 100px">
         </div>
-        <% if (header.contacts_stripe.socials) { %>
+        <% if (header.contacts_stripe && header.contacts_stripe.socials) { %>
           <div class="col-auto">
             <% networks.forEach(network => { %>
               <% if (contacts[network]) { %>
