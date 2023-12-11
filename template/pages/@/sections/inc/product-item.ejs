@@ -63,10 +63,16 @@ if (stamps && Array.isArray(stamps.stamps_list) && stamps.stamps_list.length) {
 
       <div class="product-card__pictures">
         <!-- Picture(s) will be inserted and loaded dynamically within `ProductCard` -->
-        <% if (imgObj) { %>
+        <% if (imgObj) { 
+          console.log(imgObj.url)
+          const { width, height } = _.tryImageSize(imgObj.url)
+          console.log(width)
+          %>
           <picture class="product-card__picture">
             <img
               data-src="<%= imgObj.url %>"
+              width="300"
+              height="300"
               alt="<%= imgObj.alt %>"
               class="lozad-delay fade"
               <% if (imgObj.url.startsWith('https://ecoms1.com/')) { %>

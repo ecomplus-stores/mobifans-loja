@@ -43,13 +43,15 @@
 .header__nav a {
   padding-right: 1rem;
 }
-@font-face {font-family: "Gotham Rounded Medium";
+@font-face {
+  font-family: "Gotham Rounded Medium";
   src: url("/font-mobi.eot"); /* IE9*/
   src: url("/font-mobi.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
   url("/font-mobi.woff2") format("woff2"), /* chrome、firefox */
   url("/font-mobi.woff") format("woff"), /* chrome、firefox */
   url("/font-mobi.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url("/font-mobi.svg#Gotham Rounded Medium") format("svg"); /* iOS 4.1- */
+  font-display: swap;
 }
 
 body, h4, h3, h2, h1, h5, h6, li, ul, a, b, strong, em, span {
