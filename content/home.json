@@ -4,7 +4,7 @@
   "sections": [
     {
       "type": "banner-slider",
-      "autoplay": 5000,
+      "autoplay": 10000,
       "slides": [
         {
           "start": "2023-10-30T19:18:01.262Z",
@@ -36,7 +36,7 @@
     {
       "type": "collection-shelf",
       "shuffle": true,
-      "limit": 12,
+      "limit": 8,
       "page": 1,
       "collection_id": "62b20957eb859112165e41ee:categories:Kits Exclusivos Mobifans:/kits-exclusivos-mobifans",
       "title": "Kits Exclusivos Mobifans",
@@ -45,7 +45,7 @@
     {
       "type": "collection-shelf",
       "shuffle": true,
-      "limit": 12,
+      "limit": 8,
       "collection_id": "615ee50428ace502ae990adf:categories:Capas com corrente:/capas-com-corrente",
       "sort": "views",
       "link": "",
@@ -68,7 +68,7 @@
       "collection_id": "60ca5077641ad82fcc2a2e9f:collections:Capas Exclusivas:/capas-e-peliculas-exclusivas",
       "sort": "offers",
       "title": "Capas Exclusivas",
-      "limit": 12
+      "limit": 8
     },
     {
       "type": "collection-shelf",
@@ -120,7 +120,7 @@
     {
       "type": "collection-shelf",
       "shuffle": true,
-      "limit": 12,
+      "limit": 8,
       "page": "",
       "collection_id": "5fc4efcb69274c73fcde9129:categories:PopSockets:/popsockets",
       "sort": "news",
