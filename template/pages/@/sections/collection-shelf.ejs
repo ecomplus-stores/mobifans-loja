@@ -64,9 +64,18 @@ if (opt.sort || opt.collection_id) {
   const offset = opt.page >= 2 ? (opt.page - 1) * size : 0
   items = _.items.slice(offset, offset + size)
 }
+if (items && items.length) {
+  items = items.filter(item => item.quantity > 0)
+  if (opt.sort === 'sales') {
+    items = items.sort((a, b) => b.sales > a.sales ? 1 : -1)
+    items = items.filter(item => item.sales > 10)
+  }
+}
+
+
 %>
 
-<div class="collection-shelf my-lg-5">
+<div class="collection-shelf">
   <%- await include('@/sections/inc/products-carousel', {
     _, opt: { items, collection, title, link, shuffle, headless, autoplay }
   }) %>

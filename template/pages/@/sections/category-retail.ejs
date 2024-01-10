@@ -15,6 +15,11 @@ try {
   }
 }
 const categoryNames = [_.state.name]
+let productOrder
+const categoryOrder = _.cms(`category_list/${_.state.slug}`)
+if (categoryOrder && categoryOrder.list && categoryOrder.list.length) {
+    productOrder =  categoryOrder.list.map(({ product_id }) => product_id)
+}
 
 if (items && !items.length) {
   const childCategories = _.categories.filter(({ parent }) => {
@@ -29,8 +34,45 @@ if (items && !items.length) {
       .setSortOrder(opt.sort)
     await search.fetch()
     items = await search.getItems()
+    
   }
 }
+
+const model = _.state.name.replace('Capas para ', '').replace('New! ', '').replace(' (todos modelos)', '')
+const itemQuantity = items.filter(item => {
+  if (Array.isArray(item.variations) && item.variations.length) {
+    return item.variations.some(variation => {
+      return variation.specifications['modelo'] &&
+        variation.specifications['modelo'][0] &&
+        variation.specifications['modelo'][0].text === model &&
+        variation.quantity > 0
+    })
+  }
+  return item
+})
+const diff = items.filter(({ _id: id1 }) => !itemQuantity.some(({ _id: id2 }) => id2 === id1))
+
+items = [...itemQuantity, ...diff]
+if (productOrder && productOrder.length) {
+  items.sort((a, b) => {
+    const modelNameA = productOrder.find(id => b._id === id) || '';
+    const modelNameB = productOrder.find(id => a._id === id) || '';
+
+    const indexA = productOrder.findIndex(id => id === modelNameA);
+    const indexB = productOrder.findIndex(id => id === modelNameB);
+
+    if (modelNameA === '' && modelNameB === '') {
+      return 1; 
+    } else if (modelNameA === '' && modelNameB !== '') {
+      return -1
+    } else if (modelNameA !== '' && modelNameB === '') {
+      return 1
+    }
+
+    return indexB - indexA;
+  });
+}
+
 %>
 
 <div class="category-retail">
