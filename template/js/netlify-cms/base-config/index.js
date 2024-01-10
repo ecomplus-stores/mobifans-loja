@@ -72,8 +72,8 @@ export default options => {
               ]
           }
       ]
-    },
-    {
+  },
+  {
     "label": "Grid de categorias",
     "name": "categories-carousel",
     "widget": "object",
@@ -118,13 +118,54 @@ export default options => {
           "widget": "string"
       }
     ]
-    }
+  }
   ])
-
   options.layout = getLayout(options)
   if (options.layout && options.layout.files && options.layout.files.length) {
     options.layout.files.map(file => {
       if (file && file.name === 'header') {
+        file.fields.push({
+          label: 'Lista de filtros',
+          name: 'filter-list',
+          widget: 'object',
+          icon: 'https://api.iconify.design/mdi:copyright.svg',
+          required: false,
+          fields: [
+              {
+                  label: 'Lista de filtros',
+                  name: 'filters',
+                  widget: 'list',
+                  required: false,
+                  fields: [
+                      {
+                          label: 'Opção do filtro',
+                          name: 'filter_option',
+                          widget: 'string',
+                          required: false
+                      },
+                      {
+                          label: 'Marca',
+                          name: 'filter_grid_model',
+                          widget: 'string',
+                          required: false
+                      },
+                      {
+                        label: 'Proteção',
+                        name: 'filter_grid_protection',
+                        widget: 'string',
+                        hint: 'Se houver proteção especificada',
+                        required: false
+                      }
+                  ]
+              },
+            {
+              name: 'title',
+              widget: 'string',
+              required: false,
+              label: 'Nome da lista de Filtros'
+            }
+          ]
+      })
         const stripe = file.fields.find(field => field.name === 'marketing_stripe')
         if (stripe) {
           stripe.fields = [{
@@ -175,6 +216,7 @@ export default options => {
     })
   }
 
+
   return {
     backend: {
       name: "git-gateway",
@@ -200,11 +242,55 @@ export default options => {
     },
     collections: [
       getSettings(options),
-      options.layout,
       getPages(options),
+      options.layout,
       getBlogPosts(options),
       getExtraPages(options),
-      getWidgets(options)
+      getWidgets(options),
+      {
+        name: 'category_list',        
+        label: 'Lista de itens por categoria',
+        description: 'Configure a lista de produtos em sequência para listagem da busca',
+        folder: `${options.baseDir}content/category_list`,
+        extension: 'json',
+        create: true,
+        slug: '{{slug}}',
+        fields: [
+          {
+            label: 'Identificador [Categoria]',
+            name: 'identificador',
+            widget: 'select',
+                multiple: true,
+                options: [
+                  ...options.state.routes
+                  .filter(el => el.resource === 'categories')
+                  .map((el) => ({
+                    label: 'Categoria - ' + el.name,
+                    value: el.slug
+                  }))
+                ]                
+          }, 
+          {
+            label:"Lista de skus",
+            name:"list",
+            widget:"list",
+            required:false,
+            fields: [
+              {
+                label: 'SKU do produto',
+                name: 'product_id',
+                widget: 'select',
+                options: options.state.routes
+                  .filter(({ sku }) => typeof sku === 'string')
+                  .map(({ _id, sku }) => ({
+                    label: sku,
+                    value: _id
+                  }))               
+              },             
+            ]
+          },
+        ]
+      }
     ]
   }
 }

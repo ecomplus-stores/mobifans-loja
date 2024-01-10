@@ -47,4 +47,84 @@ const customCode = _.cms('code')
 if (customCode) {
   %> <%- customCode.html_body %> <%
 }
+let productOrder
 %>
+
+<% if (_.route.resource === 'categories') { 
+  const categoryOrder = _.cms(`category_list/${_.state.slug}`)
+  if (categoryOrder && categoryOrder.list && categoryOrder.list.length) {
+    productOrder =  categoryOrder.list.map(({ product_id }) => product_id)
+  }
+  %>
+  <script>
+    window.categoryOrder = <%- JSON.stringify(productOrder) %>
+  </script>
+<% } %>
+
+<script>
+  window.categoryOrder = <%- JSON.stringify(productOrder) %>;
+window.modelList = [
+    "iPhone 15 Pro Max",
+    "iPhone 15 Pro",
+    "iPhone 15",
+    "iPhone 13 Pro Max",
+    "iPhone 13/13 Pro",
+    "iPhone 12 Pro Max",
+    "iPhone 13 Pro",
+    "iPhone 12/12 Pro",
+    "IPhone 11 Pro Max/XS Max",
+    "iPhone 11 Pro Max/XS Max",
+    "iPhone 11 Pro/X/XS",
+    "iPhone 11/XR",
+    "iPhone 11",
+    "iPhone 13",
+    "iPhone 12 Mini",
+    "iPhone 13 Mini",
+    "iPhone 11 Pro Max",
+    "iPhone X/XS",
+    "iPhone 11 Pro",
+    "iPhone 7 Plus",
+    "iPhone XS Max",
+    "iPhone 14 Pro",
+    "iPhone XR",
+    "iPhone 14",
+    "iPhone 14 Pro Max",
+    "Galaxy S21 Plus",
+    "Galaxy S21 Ultra",
+    "iPhone 14 Plus",
+    "Galaxy S20 Plus",
+    "Galaxy S21",
+    "iPhone 7",
+    "Galaxy S20 Ultra",
+    "iPhone 6/6s",
+    "iPhone 6/6s Plus",
+    "iPhone 6/7/8 Plus",
+    "Galaxy S8",
+    "Galaxy S8 Plus",
+    "iPhone SE 2020",
+    "Galaxy A72",
+    "Galaxy S10 Plus",
+    "Galaxy S22",
+    "Galaxy S22 Plus",
+    "Galaxy S10e",
+    "iPhone 6/7/8",
+    "Galaxy A02s",
+    "Galaxy A03s",
+    "Galaxy A11",
+    "Galaxy A12",
+    "Galaxy A21s",
+    "Galaxy A22 4G",
+    "Galaxy A31",
+    "Galaxy A32 4G",
+    "Galaxy A32 5G",
+    "Galaxy A51",
+    "Galaxy A71",
+    "Galaxy Note 20",
+    "Galaxy S10",
+    "Galaxy S20",
+    "Galaxy S22 Ultra",
+    "K41s",
+    "K51s",
+    "K52" 
+  ]
+</script>
