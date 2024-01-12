@@ -367,3 +367,26 @@ padding: 3px;
   color: rgb(204, 12, 57) !important;
 }
  */
+ .color-label {
+  min-height: 1.5rem;
+  max-height: 1.5rem;
+  min-width: 1.5rem;
+  max-width: 1.5rem;
+  border-radius: 100%;
+  display: inline-block;
+  border: solid .4px #000
+}
+
+.search-engine__option {
+  display: flex !important;
+  margin: 3px;
+
+  .custom-control-label {
+    display: flex;
+  }
+  
+  .custom-control-label span {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+}

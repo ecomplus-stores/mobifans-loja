@@ -136,7 +136,15 @@
                     class="custom-control-label"
                     :for="`${filter}-${index}`"
                   >
+                  <span 
+                    v-if="opt.hexadecimal"
+                    class="color-label"
+                    :style="opt.hexadecimal.length > 1 ? `background:linear-gradient(to right bottom, ${opt.hexadecimal[0]} 50%, ${opt.hexadecimal[1]} 50%)` : `background:${opt.hexadecimal[0]}`"
+                  >
+                  </span>
+                  <span>
                     {{ opt.key }}
+                  </span>
                     <small v-if="!isSpec">({{ opt.doc_count }})</small>
                   </label>
                 </div>

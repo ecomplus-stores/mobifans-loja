@@ -414,9 +414,8 @@ import {
   
         if (orderItems && orderItems.length) {
           allProducts.sort((a, b) => {
-  
-            const modelNameA = orderItems.find(id => b._id === id) || '';
-            const modelNameB = orderItems.find(id => a._id === id) || '';
+            const modelNameA = orderItems.find(id => b.sku === id) || '';
+            const modelNameB = orderItems.find(id => a.sku === id) || '';
   
             const indexA = orderItems.findIndex(id => id === modelNameA);
             const indexB = orderItems.findIndex(id => id === modelNameB);
@@ -583,6 +582,467 @@ import {
               if (presetedOptions) {
                 options = options.filter(({ key }) => presetedOptions.indexOf(key) === -1)
               }
+            }
+            if (filter === 'modelo') {
+              const sizeSpec = window.listModel || []
+              console.log(sizeSpec)
+              console.log(sizeSpec.length)
+            
+              if (sizeSpec.length) {
+                options.sort((a, b) => {
+                  const modelNameA = sizeSpec.find(item => b.key === item.filter_option);
+                  const modelNameB = sizeSpec.find(item => a.key === item.filter_option);
+  
+                  const filteredModelA = modelNameA && modelNameA.filter_option || ''
+                  const filteredModelB = modelNameB && modelNameB.filter_option || ''
+    
+                  const indexA = sizeSpec.findIndex(item => item.filter_option && item.filter_option === filteredModelA);
+                  const indexB = sizeSpec.findIndex(item => item.filter_option && item.filter_option === filteredModelB);
+    
+                  if (filteredModelA === '' && filteredModelB === '') {
+                    return 1; 
+                  } else if (filteredModelA === '' && filteredModelB !== '') {
+                    return -1
+                  } else if (filteredModelA !== '' && filteredModelB === '') {
+                    return 1
+                  }
+    
+                  return indexB - indexA;
+                });
+              }
+            }
+            if (filter === 'colors') {
+              const arrayOptions = [
+                {
+                  "_id": "747440159604217630200000",
+                  "text": "Black",
+                  "option_id": "black",
+                  "colors": [
+                    "#000000"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200002",
+                  "text": "Azul Escuro",
+                  "option_id": "azul escuto",
+                  "colors": [
+                    "rgb(22, 22, 112)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200003",
+                  "text": "Fumê",
+                  "option_id": "fume",
+                  "colors": [
+                    "rgb(153, 150, 150)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200004",
+                  "text": "Marrom",
+                  "option_id": "marrom",
+                  "colors": [
+                    "rgb(144, 111, 95);"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200005",
+                  "text": "Gradiente (Rosa)",
+                  "option_id": "gradiente rosa",
+                  "colors": [
+                    "rgb(215, 195, 211)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200006",
+                  "text": "Azul sierra",
+                  "option_id": "azul sierra",
+                  "colors": [
+                    "rgb(171, 192, 206)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200007",
+                  "text": "Vermelho",
+                  "option_id": "Vermelho",
+                  "colors": [
+                    "rgb(255, 0, 0)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200008",
+                  "text": "Lilás",
+                  "option_id": "Lilás",
+                  "colors": [
+                    "rgb(171, 173, 211)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200009",
+                  "text": "Azul",
+                  "option_id": "Azul",
+                  "colors": [
+                    "rgb(46, 147, 230)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200010",
+                  "text": "Gradiente (Pink)",
+                  "option_id": "Gradiente (Pink)",
+                  "colors": [
+                    "rgb(227, 132, 224)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200011",
+                  "text": "Branco",
+                  "option_id": "Branco",
+                  "colors": [
+                    "#fff"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200012",
+                  "text": "Preto",
+                  "option_id": "Preto",
+                  "colors": [
+                    "#000"
+                  ]
+                }, 
+                {
+                  "_id": "747440159604217630200013",
+                  "text": "Gradiente",
+                  "option_id": "Gradiente",
+                  "colors": [
+                    "rgb(199, 59, 131)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200014",
+                  "text": "Verde",
+                  "option_id": "Verde",
+                  "colors": [
+                    "rgb(105, 154, 151)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200015",
+                  "text": "Orange",
+                  "option_id": "Orange",
+                  "colors": [
+                    "rgb(255, 89, 0)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200016",
+                  "text": "Yellow",
+                  "option_id": "Yellow",
+                  "colors": [
+                    "rgb(204, 219, 35)"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200001",
+                  "text": "Blue",
+                  "option_id": "blue",
+                  "colors": [
+                    "#3096f0"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200002",
+                  "text": "Clear",
+                  "option_id": "clear",
+                  "colors": [
+                    "#f8f8ff"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200003",
+                  "text": "Dark Blue",
+                  "option_id": "dark_blue",
+                  "colors": [
+                    "#191970"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200004",
+                  "text": "Gold",
+                  "option_id": "gold",
+                  "colors": [
+                    "#d6b704"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200005",
+                  "text": "Grey",
+                  "option_id": "grey",
+                  "colors": [
+                    "#a9a9a9"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200006",
+                  "text": "Pink",
+                  "option_id": "pink",
+                  "colors": [
+                    "#a38386"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200007",
+                  "text": "Red",
+                  "option_id": "red",
+                  "colors": [
+                    "#ff0000"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200008",
+                  "text": "Rose Gold",
+                  "option_id": "rose_gold",
+                  "colors": [
+                    "#b76e79"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200009",
+                  "text": "White",
+                  "option_id": "white",
+                  "colors": [
+                    "#ffffff"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200010",
+                  "text": "Green",
+                  "option_id": "green",
+                  "colors": [
+                    "#a0c633"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200011",
+                  "text": "Petroleum",
+                  "option_id": "petroleum",
+                  "colors": [
+                    "#005f6a"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200012",
+                  "text": "Purple",
+                  "option_id": "purple",
+                  "colors": [
+                    "#859cc6"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200013",
+                  "text": "Dark Magenta",
+                  "option_id": "dark_magenta",
+                  "colors": [
+                    "#8b008b"
+                  ]
+                },
+                {
+                  "_id": "747440159604217630200013",
+                  "text": "Violeta",
+                  "option_id": "violeta",
+                  "colors": [
+                    "rgb(182, 182, 210)"
+                  ]
+                },
+                {
+                  "_id": "811550159604246698600029",
+                  "text": "Black com furo",
+                  "option_id": "black_com_furo",
+                  "colors": [
+                    "#050505",
+                    "#f8f8ff"
+                  ]
+                },
+                {
+                  "_id": "811550159604246698600030",
+                  "text": "Dark Blue com furo",
+                  "option_id": "dark_blue_com_furo",
+                  "colors": [
+                    "#141470",
+                    "#f8f8ff"
+                  ]
+                },
+                {
+                  "_id": "811550159604246698600031",
+                  "text": "Grey com furo",
+                  "option_id": "grey_com_furo",
+                  "colors": [
+                    "#787878",
+                    "#f8f8ff"
+                  ]
+                },
+                {
+                  "_id": "811550159604246698600032",
+                  "text": "Pink com furo",
+                  "option_id": "pink_com_furo",
+                  "colors": [
+                    "#ffbac7",
+                    "#f8f8ff"
+                  ]
+                },
+                {
+                  "_id": "811550159604246698600033",
+                  "text": "Red com furo",
+                  "option_id": "red_com_furo",
+                  "colors": [
+                    "#ff1919",
+                    "#f8f8ff"
+                  ]
+                },
+                {
+                  "_id": "811550159604246698600034",
+                  "text": "Transparente+Borda Black",
+                  "option_id": "transparenteborda_black",
+                  "colors": [
+                    "#f8f8ff",
+                    "#000000"
+                  ]
+                },
+                {
+                  "_id": "525690159604276992100036",
+                  "text": "White com furo",
+                  "option_id": "white_com_furo",
+                  "colors": [
+                    "#f7f7f7",
+                    "#f5f2f2"
+                  ]
+                },
+                {
+                  "_id": "148250161763418969900021",
+                  "text": "Turquesa",
+                  "option_id": "turquesa",
+                  "colors": [
+                    "#37a3c4"
+                  ]
+                },
+                {
+                  "_id": "651140161764498255800022",
+                  "text": "Blue com furo",
+                  "option_id": "blue_com_furo",
+                  "colors": [
+                    "#44b7f5",
+                    "#f0f0f0"
+                  ]
+                },
+                {
+                  "_id": "436070168805053722300023",
+                  "colors": [
+                    "#242834"
+                  ],
+                  "text": "Preto ",
+                  "option_id": "preto_"
+                },
+                {
+                  "_id": "436070168805053722300024",
+                  "text": "Azul ",
+                  "option_id": "azul_",
+                  "colors": [
+                    "#132d52"
+                  ]
+                },
+                {
+                  "_id": "436070168805053722300025",
+                  "text": "Verde ",
+                  "option_id": "verde_",
+                  "colors": [
+                    "#173535"
+                  ]
+                },
+                {
+                  "_id": "436070168805053722300026",
+                  "colors": [
+                    "#adcde5"
+                  ],
+                  "text": "Azul Claro",
+                  "option_id": "azul_claro"
+                },
+                {
+                  "_id": "436070168805053722300027",
+                  "colors": [
+                    "#c7b3bc"
+                  ],
+                  "text": "Rosa",
+                  "option_id": "rosa"
+                },
+                {
+                  "_id": "976300169029858717900028",
+                  "text": "Rosa e Verde",
+                  "option_id": "rosa_e_verde",
+                  "colors": [
+                    "#a14b63",
+                    "#349e9f"
+                  ]
+                },
+                {
+                  "_id": "608640169290509892100029",
+                  "text": "Candy",
+                  "option_id": "candy",
+                  "colors": [
+                    "#e7bba4",
+                    "#82abbd"
+                  ]
+                },
+                {
+                  "_id": "400430169290622287600030",
+                  "text": "Rainbown",
+                  "option_id": "rainbown",
+                  "colors": [
+                    "#db9ed4",
+                    "#f5ec85"
+                  ]
+                },
+                {
+                  "_id": "890060169296981707400031",
+                  "text": "Brown",
+                  "option_id": "brown",
+                  "colors": [
+                    "#bf9664"
+                  ]
+                },
+                {
+                  "_id": "687600169324283546300032",
+                  "text": "Gradiente (Rosa + Verde)",
+                  "option_id": "gradiente_rosa__verde",
+                  "colors": [
+                    "#d24277",
+                    "#40c791"
+                  ]
+                },
+                {
+                  "_id": "546610169342067812300033",
+                  "text": "Gradiente (Blue)",
+                  "option_id": "gradiente_blue",
+                  "colors": [
+                    "#7b8de8"
+                  ]
+                },
+                {
+                  "_id": "546610169342067812300034",
+                  "text": "Gradiente (Rosa)",
+                  "option_id": "gradiente_rosa",
+                  "colors": [
+                    "#e384e0"
+                  ]
+                }
+              ]
+              options = options.map(option => {
+                const optionFound = arrayOptions.find(opt => {
+                  return opt.text === option.key
+                })
+                return {
+                  ...option,
+                  hexadecimal: optionFound && optionFound.colors
+                }
+              })
             }
             this.filters[filterIndex] = {
               filter,
