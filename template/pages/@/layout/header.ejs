@@ -3,11 +3,20 @@
 const header = _.cms('header') || {}
 const contacts = _.cms('contacts') || {}
 const themeCustom = _.settings.theme.custom || ''
-const { filters } = header['filter-list']
-const brandsModel = _.lodash.groupBy(filters, ({ filter_grid_model }) => {
+const filterHead = header['filter-list']
+let filters = []
+let brandsModel
+let keysMenu = []
+if (filterHead) {
+  filters = filterHead.filters
+}
+if (filters) {
+  brandsModel = _.lodash.groupBy(filters, ({ filter_grid_model }) => {
   return !filter_grid_model ? '_' : filter_grid_model
 })
-const keysMenu = Object.keys(brandsModel) || []
+  keysMenu = Object.keys(brandsModel) || []  
+}
+
 
 // social networks handled by contacts
 const networks = [
