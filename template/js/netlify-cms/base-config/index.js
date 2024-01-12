@@ -7,6 +7,13 @@ import getExtraPages from "@ecomplus/storefront-template/template/js/netlify-cms
 import getWidgets from "@ecomplus/storefront-template/template/js/netlify-cms/base-config/collections/widgets"
 
 export default options => {
+  options.state.routes.push({
+    "resource": "products",
+    "_id": "62979b6bac0cb4200ffa4a88",
+    "path": "/seed-eco-case-apple",
+    "sku": "2009-1"
+  })
+  console.log(options.state.routes.filter(({sku}) => sku === '2009-1'))
   options.sections = getSections(options).concat([
     {
         label: "Faq por categoria",
@@ -120,6 +127,7 @@ export default options => {
     ]
   }
   ])
+  console.log(options)
   options.layout = getLayout(options)
   if (options.layout && options.layout.files && options.layout.files.length) {
     options.layout.files.map(file => {
@@ -257,18 +265,10 @@ export default options => {
         slug: '{{slug}}',
         fields: [
           {
-            label: 'Identificador [Categoria]',
-            name: 'identificador',
-            widget: 'select',
-                multiple: true,
-                options: [
-                  ...options.state.routes
-                  .filter(el => el.resource === 'categories')
-                  .map((el) => ({
-                    label: 'Categoria - ' + el.name,
-                    value: el.slug
-                  }))
-                ]                
+            label: "Título do Registro",
+            hint: "Insira o slug da categoria",
+            name: "title",
+            widget: "string"          
           }, 
           {
             label:"Lista de skus",
@@ -282,9 +282,9 @@ export default options => {
                 widget: 'select',
                 options: options.state.routes
                   .filter(({ sku }) => typeof sku === 'string')
-                  .map(({ _id, sku }) => ({
+                  .map(({ sku }) => ({
                     label: sku,
-                    value: _id
+                    value: sku
                   }))               
               },             
             ]

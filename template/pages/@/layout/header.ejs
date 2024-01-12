@@ -3,7 +3,11 @@
 const header = _.cms('header') || {}
 const contacts = _.cms('contacts') || {}
 const themeCustom = _.settings.theme.custom || ''
-console.log(header)
+const { filters } = header['filter-list']
+const brandsModel = _.lodash.groupBy(filters, ({ filter_grid_model }) => {
+  return !filter_grid_model ? '_' : filter_grid_model
+})
+const keysMenu = Object.keys(brandsModel) || []
 
 // social networks handled by contacts
 const networks = [
@@ -52,6 +56,9 @@ const fullWidthSubmenu = header.full_width_submenu
 const isCentralizedLogo = header.centralized_logo
 const hasAllDepartments = header.menu_all_departments
 %>
+<script>
+  window.listModel = <%- JSON.stringify(filters || []) %>
+</script>
 
 <div id="overlay" class="fade"></div>
 
@@ -358,6 +365,29 @@ const hasAllDepartments = header.menu_all_departments
                           return b.name > a.name ? -1 : 1
                         })
                       }
+
+                      const indexMenu = keysMenu.findIndex(menu => subcategory.name && subcategory.name.includes(menu))
+                            if (indexMenu > -1) {
+                              const arrayMenu = brandsModel[keysMenu[indexMenu]]
+                              thirdCategories.sort((a, b) => {
+                                const modelNameA = arrayMenu.find(item => b.name && b.name.toLowerCase().includes(item.filter_option && item.filter_option.toLowerCase()))?.filter_option || '';
+                                const modelNameB = arrayMenu.find(item => a.name && a.name.toLowerCase().includes(item.filter_option && item.filter_option.toLowerCase()))?.filter_option || '';
+
+                                const indexA = arrayMenu.findIndex(item => item.filter_option && item.filter_option.toLowerCase() === modelNameA.toLowerCase());
+                                const indexB = arrayMenu.findIndex(item => item.filter_option && item.filter_option.toLowerCase() === modelNameB.toLowerCase());
+
+                                if (modelNameA === '' && modelNameB === '') {
+                                  return 1; 
+                                } else if (modelNameA === '' && modelNameB !== '') {
+                                  return -1
+                                } else if (modelNameA !== '' && modelNameB === '') {
+                                  return 1
+                                }
+
+                                return indexB - indexA;
+                              });
+                              
+                            }
                     %>
                     <nav class="header__submenu<%= fullWidthSubmenu ? ' header__submenu--full' : '' %>" id="<%= `s-${slug.replace(/\//g, '_')}` %>">
                       <% subcategories.forEach(subcategory => { %>
