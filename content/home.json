@@ -4,8 +4,14 @@
   "sections": [
     {
       "type": "banner-slider",
-      "autoplay": 10000,
+      "autoplay": 6000,
       "slides": [
+        {
+          "start": "",
+          "end": "",
+          "img": "https://www.comercial.customic.com.br/news/promo_dia_das_maes_2024/mobi/Desktop-Banner-Mobimaes.webm",
+          "mobile_img": "https://www.comercial.customic.com.br/news/promo_dia_das_maes_2024/mobi/Mobile-Banner-Mobimaes.webm"
+        },
         {
           "start": "",
           "end": "",
