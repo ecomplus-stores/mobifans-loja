@@ -390,3 +390,13 @@ padding: 3px;
     margin-right: 3px;
   }
 }
+
+.shipping-calculator__services::before {
+  content: 'Devido as fortes chuvas no Rio Grande do Sul, a entrega poderá sofrer atrasos.';
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+  padding: 10px;
+  display: flex;
+  margin-bottom: 3px;
+}
