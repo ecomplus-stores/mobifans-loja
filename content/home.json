@@ -7,6 +7,14 @@
       "autoplay": 6000,
       "slides": [
         {
+          "start": "",
+          "end": "",
+          "img": "/img/uploads/mobi-banner-iphone16-desk.webp",
+          "mobile_img": "/img/uploads/mobi-banner-iphone16-mobile.webp",
+          "link": "https://mobifans.com.br/iphone-16",
+          "alt": "Banner Lançamento novos iPhones 16"
+        },
+        {
           "start": "2023-10-30T19:18:01.262Z",
           "end": "",
           "img": "/img/uploads/desk-banner-mobi-copiar.webp",
