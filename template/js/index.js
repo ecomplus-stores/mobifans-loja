@@ -8,4 +8,10 @@ document.getElementById('c-5ef1025914ff772fde7aab00').href = '/soft-touch-all';
 document.getElementById('c-5ef1023f14ff772fde7aaac9').href = '/impactor-ultra-fabric-all';
 document.getElementById('c-5ef1024014ff772fde7aaacb').href = '/impactor-ultra-all';
 document.getElementById('c-5ef1024114ff772fde7aaacd').href = '/impactor-flex-all';
-document.getElementById('c-5ef1024214ff772fde7aaad0').href = '/impactor-clear-all'
+document.getElementById('c-5ef1024214ff772fde7aaad0').href = '/impactor-clear-all';
+
+const link = document.getElementById('sd-5ef1022514ff772fde7aaa94');
+if (link) {
+    const parentDiv = link.parentElement;
+    parentDiv.style.order = '0';
+} 
