@@ -105,6 +105,83 @@
           "subcategory_menu_slug": "/todasascasesdeiphone"
         }
       ]
+    },
+    {
+      "submenu_menu_slug": "/android",
+      "submenu_menu": [
+        {
+          "subcategory_menu_slug": "/galaxy-s24-ultra"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s24-plus"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s24"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s23-ultra"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s23-plus"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s23"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s22-ultra"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s22-plus"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s22"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s21-ultra"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s21-plus"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s21-fe"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s21"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s20-ultra"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s20-plus"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s20-fe"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s20"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s10-plus"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s10-lite"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s10e"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-s10"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-a54-5g"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-a34-5g"
+        },
+        {
+          "subcategory_menu_slug": "/galaxy-a14-5g"
+        }
+      ]
     }
   ]
 }
