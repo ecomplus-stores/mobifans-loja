@@ -7,7 +7,6 @@ import getExtraPages from "@ecomplus/storefront-template/template/js/netlify-cms
 import getWidgets from "@ecomplus/storefront-template/template/js/netlify-cms/base-config/collections/widgets"
 
 //CUSTOM MODULES
-import getCases from './collections/capas'
 
 export default options => {
   options.state.routes.push({
@@ -556,7 +555,6 @@ export default options => {
       getPages(options),
       options.layout,
       getBlogPosts(options),
-      getCases(options),
       getExtraPages(options),
       getWidgets(options),
       {
