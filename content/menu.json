@@ -9,5 +9,102 @@
   ],
   "phone_wpp": true,
   "socials": true,
-  "alphabetical_order": false
+  "alphabetical_order": false,
+  "submenu_menu_order": [
+    {
+      "submenu_menu_slug": "/apple",
+      "submenu_menu": [
+        {
+          "subcategory_menu_slug": "/iphone-16-pro-max"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-16-pro"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-16-plus"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-16"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-15-pro-max"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-15-pro"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-15-plus"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-15"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-14-pro-max"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-14-pro"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-14-plus"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-14"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-13-pro-max"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-13-pro"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-13-mini"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-13"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-12-pro-max"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-12-pro"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-12-mini"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-12"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-11-pro-max"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-11-pro"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-11"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-xs-max"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-xr"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-xs"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-se-2020"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-8-plus"
+        },
+        {
+          "subcategory_menu_slug": "/iphone-8"
+        },
+        {
+          "subcategory_menu_slug": "/todasascasesdeiphone"
+        }
+      ]
+    }
+  ]
 }
