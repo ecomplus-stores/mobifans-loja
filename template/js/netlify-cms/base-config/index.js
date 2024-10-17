@@ -6,6 +6,9 @@ import getBlogPosts from "@ecomplus/storefront-template/template/js/netlify-cms/
 import getExtraPages from "@ecomplus/storefront-template/template/js/netlify-cms/base-config/collections/extra-pages"
 import getWidgets from "@ecomplus/storefront-template/template/js/netlify-cms/base-config/collections/widgets"
 
+//CUSTOM MODULES
+import getCases from './collections/capas'
+
 export default options => {
   options.state.routes.push({
     "resource": "products",
@@ -75,6 +78,13 @@ export default options => {
                           value: _id
                         }))
                     }
+                  },
+                  {
+                    label: "Desconto compre junto fixo",
+                    hint: "Insira o desconto fixo baseado em se comprar a capa, qual desconto será dado no produto adicional",
+                    name: "discount",
+                    widget: "number",
+                    required: false
                   }
               ]
           }
@@ -125,6 +135,177 @@ export default options => {
           "widget": "string"
       }
     ]
+  },
+  {
+    "label": "Grid de banners com Texto",
+    "name": "banners-carousel",
+    "widget": "object",
+    "fields": [
+        {
+            "label": "Banners",
+            "name": "banners",
+            "widget": "list",
+            "fields": [
+                {
+                    "label": "Imagem",
+                    "name": "img",
+                    "widget": "image"
+                },
+                {
+                    "label": "Link",
+                    "required": false,
+                    "name": "link",
+                    "widget": "string"
+                },
+                {
+                    "label": "Descrição",
+                    "required": false,
+                    "name": "markdown",
+                    "widget": "markdown",
+                },
+                {
+                  "label": "Cor de fundo",
+                  "name": "background",
+                  "required": false,
+                  "widget": "color",
+                },
+                {
+                  "label": "Cor da fonte",
+                  "name": "color",
+                  "required": false,
+                  "widget": "color"
+                }
+            ]
+        }
+    ]
+  },
+  {
+    label: 'Lista de Posts do Blog',
+    name: 'blog-grid',
+    widget: 'object',
+    fields: [
+      {
+        "label": "Grid blog",
+        "name": "blog-grid",
+        "widget": "list",
+        "fields": [
+            {
+                "label": "Banners",
+                "name": "banners",
+                "widget": "list",
+                "fields": [
+                    {
+                        "label": "Imagem",
+                        "name": "img",
+                        "widget": "image",
+                        "required": false
+                    },
+                    {
+                        "label": "Link",
+                        "required": false,
+                        "name": "link",
+                        "widget": "string"
+                    },
+                    {
+                        "label": "Alt",
+                        "required": false,
+                        "name": "alt",
+                        "widget": "string"
+                    },
+                    {
+                      "label": "Frase de chamada blog",
+                      "required": false,
+                      "name": "phrase_blog",
+                      "widget": "string"
+                    },
+                    {
+                      "label": "Texto de chamada blog",
+                      "required": false,
+                      "name": "text_blog",
+                      "widget": "string"
+                    }
+                ]
+            },
+            {
+              "label": "Slug categoria",
+              "required": false,
+              "name": "title",
+              "widget": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    label: 'FAQ 2',
+    name: 'mgnr_faq',
+    widget: 'object',
+    fields: [
+      {
+        label: 'Lista de faqs',
+        name: 'mgnr_faq_list',
+        widget: 'list',
+        fields: [
+          {
+            label: 'Título',
+            required: false,
+            name: 'title',
+            widget: 'string'
+          },
+          {
+            label: 'Descrição',
+            required: false,
+            name: 'description',
+            widget: 'text'
+          },
+          {
+            label: 'Posição da descrição',
+            required: false,
+            name: 'list',
+            widget: 'select',
+            options: ["description_first","description_last"]
+          },        
+          {
+            label: 'Perguntas',
+            name: 'questions',
+            widget: 'list',
+            required:false,
+            fields: [
+              {
+                label: 'Pergunta',
+                name: 'question',
+                widget: 'object',
+                required:false,
+                fields: [
+                  {
+                    label: 'Pergunta',
+                    name: 'title',
+                    widget: 'string'          
+                  },
+                  {
+                    label: 'Resposta',
+                    name: 'response',
+                    widget: 'string'          
+                  }              
+                ]
+              },          
+            ]
+          },
+          {
+            label: 'Escolha a categoria',
+            name: 'category',
+            widget: 'select',
+            required: false,
+            options: options.state.routes
+            .filter(el => el.resource === 'categories')
+            .map((el) => ({
+              label: el.name,
+              value: el.slug || el._id
+            }))
+          }
+        ]
+      }    
+    ]
   }
   ])
   console.log(options)
@@ -163,6 +344,13 @@ export default options => {
                         widget: 'string',
                         hint: 'Se houver proteção especificada',
                         required: false
+                      },
+                      {
+                        label: 'Selo Novo',
+                        name: 'is_new',
+                        widget: 'boolean',
+                        hint: 'Será inserido selo de novo, se marcado como ativo',
+                        required: false
                       }
                   ]
               },
@@ -173,6 +361,48 @@ export default options => {
               label: 'Nome da lista de Filtros'
             }
           ]
+      })
+      file.fields.push({
+        label: 'Ordenação Submenu',
+        name: 'submenu_order',
+        widget: 'list',
+        icon: 'https://api.iconify.design/mdi:copyright.svg',
+        required: false,
+        fields: [
+          {
+            label: 'Categoria pai slug',
+            name: 'submenu_slug',
+            widget: 'select',
+            required: false,
+            options: options.state.routes
+            .filter(el => el.resource === 'categories')
+            .map((el) => ({
+              label: el.name,
+              value: el.path
+            }))
+          },
+            {
+                label: 'Ordenação do Submenu',
+                name: 'submenu',
+                widget: 'list',
+                required: false,
+                fields: [
+                  {
+                    label: 'Slug da subcategoria',
+                    name: 'subcategory_slug',
+                    widget: 'select',
+                    required: false,
+                    options: options.state.routes
+                    .filter(el => el.resource === 'categories')
+                    .map((el) => ({
+                      label: el.name,
+                      value: el.path
+                    }))             
+                  }
+                    
+                ]
+            }
+        ]
       })
         const stripe = file.fields.find(field => field.name === 'marketing_stripe')
         if (stripe) {
@@ -220,6 +450,79 @@ export default options => {
           ] 
         }
       }
+      if (file && file.name === 'menu') {
+        const menuCategory = file.fields.find(field => field.name === 'sort_categories')
+        if (menuCategory) {
+          menuCategory.field = {
+                    label: 'Categoria/Coleção/Marca',
+                    name: 'slug',
+                    widget: 'select',
+                    required: false,
+                    options: options.state.routes
+                      .filter(({ resource, name }) => resource !== 'products')
+                      .map(({ name, path }) => ({
+                        label: name,
+                        value: path.slice(1)
+                      }))             
+                  }
+        }
+        file.fields.push({
+          label: 'Configurações menu',
+          name: 'menu-comprar',
+          widget: 'object',
+          required: false,
+          fields: [
+            {
+              name: 'title',
+              widget: 'string',
+              required: false,
+              label: 'Texto comprar'
+            }
+          ]
+      })
+      file.fields.push({
+        label: 'Ordenação Submenu',
+        name: 'submenu_menu_order',
+        widget: 'list',
+        icon: 'https://api.iconify.design/mdi:copyright.svg',
+        required: false,
+        fields: [
+          {
+            label: 'Categoria pai slug',
+            name: 'submenu_menu_slug',
+            widget: 'select',
+            required: false,
+            options: options.state.routes
+            .filter(el => el.resource === 'categories')
+            .map((el) => ({
+              label: el.name,
+              value: el.path
+            }))
+          },
+            {
+                label: 'Ordenação do Submenu',
+                name: 'submenu_menu',
+                widget: 'list',
+                required: false,
+                fields: [
+                  {
+                    label: 'Slug da subcategoria',
+                    name: 'subcategory_menu_slug',
+                    widget: 'select',
+                    required: false,
+                    options: options.state.routes
+                    .filter(el => el.resource === 'categories')
+                    .map((el) => ({
+                      label: el.name,
+                      value: el.path
+                    }))             
+                  }
+                    
+                ]
+            }
+        ]
+    })
+      }
       return file
     })
   }
@@ -253,6 +556,7 @@ export default options => {
       getPages(options),
       options.layout,
       getBlogPosts(options),
+      getCases(options),
       getExtraPages(options),
       getWidgets(options),
       {
@@ -282,14 +586,62 @@ export default options => {
                 widget: 'select',
                 options: options.state.routes
                   .filter(({ sku }) => typeof sku === 'string')
-                  .map(({ sku }) => ({
+                  .map(({ _id, sku }) => ({
                     label: sku,
-                    value: sku
+                    value: _id
                   }))               
               },             
             ]
-          },
+          }
         ]
+      },
+      {
+        name: 'buy_together_list',        
+        label: 'Lista de compre junto para toda loja',
+        description: 'Configure a lista de produtos em sequência para listagem da busca',
+        folder: `${options.baseDir}content/buy_together_list`,
+        extension: 'json',
+        create: true,
+        slug: '{{slug}}',
+        fields: [
+          {
+              label: "Lista compre junto",
+              name: "buy_list",
+              widget: "list",
+              fields: [
+                  {
+                      label: "Slug da categoria",
+                      hint: "Será inserido com base no produto tiver a categoria",
+                      name: "slug",
+                      widget: "string",
+                      required: false
+                  },
+                  {
+                    label: 'Produtos',
+                    name: 'products',
+                    widget: 'list',
+                    field: {
+                      label: 'SKU do produto',
+                      name: 'product_id',
+                      widget: 'select',
+                      options: options.state.routes
+                        .filter(({ sku }) => typeof sku === 'string')
+                        .map(({ _id, sku }) => ({
+                          label: sku,
+                          value: _id
+                        }))
+                    }
+                  },
+                  {
+                    label: "Desconto compre junto fixo",
+                    hint: "Insira o desconto fixo baseado em se comprar a capa, qual desconto será dado no produto adicional",
+                    name: "discount",
+                    widget: "number",
+                    required: false
+                  }
+              ]
+          }
+      ]
       }
     ]
   }

@@ -1,23 +1,18 @@
 <%
 // load header options and contacts from content
 const header = _.cms('header') || {}
+const menu = _.cms('menu') || {}
 const contacts = _.cms('contacts') || {}
 const themeCustom = _.settings.theme.custom || ''
-const filterHead = header['filter-list']
-let filters = []
-let brandsModel
-let keysMenu = []
-if (filterHead) {
-  filters = filterHead.filters
-}
-if (filters) {
-  brandsModel = _.lodash.groupBy(filters, ({ filter_grid_model }) => {
+const { filters } = header['filter-list']
+const brandsModel = _.lodash.groupBy(filters, ({ filter_grid_model }) => {
   return !filter_grid_model ? '_' : filter_grid_model
 })
-  keysMenu = Object.keys(brandsModel) || []  
-}
+const keysMenu = Object.keys(brandsModel) || []
 
+const submenuOrder = header['submenu_order'] || []
 
+const submenuSubOrder = menu['submenu_menu_order'] || []
 // social networks handled by contacts
 const networks = [
   'facebook',
@@ -31,17 +26,17 @@ const networks = [
 
 // marketing stripe custom styles
 let marketingStripeStyle = ''
-/* ;['background', 'color'].forEach(prop => {
+;['background', 'color'].forEach(prop => {
   if (header.marketing_stripe[prop]) {
     marketingStripeStyle += `${prop}:${header.marketing_stripe[prop]};`
   }
-}) */
+})
 
 // list featured categories
 let categories = []
 let isCategoriesNavFull
 if (header.categories_list) {
-  if (header.categories_list.featured && header.categories_list.featured.length) {
+  if (header.categories_list.featured.length) {
     // selected categories/collections/brands
     categories = header.categories_list.featured.map(pathAndName => {
       const [path, name] = pathAndName.split('?')
@@ -63,7 +58,7 @@ const hasMegamenu = header.desktop_megamenu
 const isAlphabeticalOrderSubmenu = header.alphabetical_order_submenu
 const fullWidthSubmenu = header.full_width_submenu
 const isCentralizedLogo = header.centralized_logo
-const hasAllDepartments = header.menu_all_departments
+
 %>
 <script>
   window.listModel = <%- JSON.stringify(filters || []) %>
@@ -72,6 +67,7 @@ const hasAllDepartments = header.menu_all_departments
 <div id="overlay" class="fade"></div>
 
 <div class="top-bar">
+  
   <% if (header.marketing_stripe && header.marketing_stripe.market_list && header.marketing_stripe.market_list.length) { %>
     <div id="topSlide" class="top-bar__countdown" style="<%= marketingStripeStyle %>">  
       <div class="container-fluid">
@@ -105,15 +101,13 @@ const hasAllDepartments = header.menu_all_departments
     </div>  
   <% } %>
 
+
   <div class="top-bar__nav d-none d-md-block">
     <div class="container-fluid">
       <div class="row">
         <div class="col d-flex">
           <nav class="top-bar__page-links">
-            <a href="mailto:contato@mobifans.com.br" target="_blank" rel="noopener">
-                  contato@mobifans.com.br
-            </a>
-            <% if (header.contacts_stripe && header.contacts_stripe.pages) { %>
+            <% if (header.contacts_stripe.pages) { %>
               <div class="<%= (themeCustom === 'ecom-beauty' && isCategoriesNavFull) ? 'd-lg-none' : '' %>">
                 <% header.contacts_stripe.pages.forEach(({ link, title }) => { %>
                   <a href="<%= link %>"><%= title %></a>
@@ -121,7 +115,7 @@ const hasAllDepartments = header.menu_all_departments
               </div>
             <% } %>
           </nav>
-          <% if (header.contacts_stripe && header.contacts_stripe.phone_wpp) { %>
+          <% if (header.contacts_stripe.phone_wpp) { %>
             <div class="top-bar__contacts-container">
               <% if (contacts.whatsapp) { %>
                 <a href="javascript:;" target="_blank" rel="noopener" class="whatsapp-link"
@@ -140,10 +134,7 @@ const hasAllDepartments = header.menu_all_departments
             
           <% } %>
         </div>
-        <div class="col">
-          <img src="/img/uploads/logo_mobifans.png" alt="Mobifans" text="Mobifans" style="width: 100px">
-        </div>
-        <% if (header.contacts_stripe && header.contacts_stripe.socials) { %>
+        <% if (header.contacts_stripe.socials) { %>
           <div class="col-auto">
             <% networks.forEach(network => { %>
               <% if (contacts[network]) { %>
@@ -190,19 +181,6 @@ const hasAllDepartments = header.menu_all_departments
           role="group"
           aria-label="<%= _.dictionary('myAccount') %>"
         >
-          <button
-            class="d-lg-none btn btn-lg"
-            id="mobile-search-btn"
-            type="button"
-            data-toggle="collapse"
-            data-target="#search-bar"
-            aria-expanded="true"
-            aria-controls="search-bar"
-            aria-controls="search-bar"
-            title="<%= _.dictionary('searchProducts') %>"
-          >
-            <i class="i-search"></i>
-          </button>
 
           <a
             id="user-button"
@@ -255,7 +233,7 @@ const hasAllDepartments = header.menu_all_departments
             <input
               type="search"
               name="term"
-              placeholder="<%= _.dictionary('searchProducts') %>"
+              placeholder="Encontre "
               aria-label="<%= _.dictionary('searchProducts') %>"
               class="header__search-input form-control"
               id="search-input"
@@ -307,57 +285,12 @@ const hasAllDepartments = header.menu_all_departments
       <% if (categories && categories.length) { %>
         <div class="d-none d-lg-block <%= isCategoriesNavFull ? 'col-12 order-lg-last' : 'col' %> header__nav-block">
           <nav class="header__nav<%= isCategoriesNavFull ? ' header__nav--full' : '' %>">
-            <% if (hasAllDepartments) { %>
-              <div class="d-inline-block">
-                <a 
-                  href="javascript:;"
-                  class="header__category"
-                  id="cd-all"
-                  onmouseover="toggleSubmenu('all', this)"
-                  onclick="toggleSubmenu('all', this)"
-                >
-                  <%= header.name_all_departments || _.dictionary('all') %>
-                </a>
-                <nav class="header__submenu header__submenu--full" id="s-all">
-                  <div class="row">
-                    <% _.categories.forEach(({ name, slug, parent, _id }) => { %>
-                      <% if (!parent) { 
-                        %>
-                        <div class="col-12 col-lg-<%- isCategoriesNavFull ? '2' : '4' %>">
-                          <a 
-                            id="sd-all-<%= _id %>" 
-                            href="/<%= slug %>"
-                          >
-                            <%= name %>
-                          </a>
-                        <% const subcategories = _.categories.filter(({ parent }) => parent && parent.slug === slug) %>
-                        <% if (subcategories.length) { %>
-                          <div id="header__submenu-<%= slug %>">
-                            <ul class="header__links">
-                              <% subcategories.forEach(subcategory => { %>
-                                <li>
-                                  <a id="td-all-<%= subcategory._id %>" class="header__submenu-subcategory" href="/<%= subcategory.slug %>">
-                                    <%= subcategory.name %>
-                                  </a>
-                                </li>
-                                <% }) %>
-                              </ul>
-                            </div>
-                          <% } %>
-                          </div>
-                        <% } %>
-                      <% }) %>
-                    </div>
-                  </nav>
-              </div>
-            <% } %>
-            <% categories.forEach(({ slug, name, _id}) => { %>
+            <% categories.forEach(({ slug, name}) => { %>
               <% let $categoryLink %>
               <div class="d-inline-block">
                 <a
                   href="/<%= slug %>"
                   class="header__category"
-                  id="cd-<%= _id %>"
                   <%- hasMegamenu
                     ? `onmouseover="toggleSubmenu('${slug}', this)" onclick="toggleSubmenu('${slug}', this, true)"`
                     : `onclick="toggleSidenav('${slug}')"` %>
@@ -374,8 +307,42 @@ const hasAllDepartments = header.menu_all_departments
                           return b.name > a.name ? -1 : 1
                         })
                       }
+                    %>
+                    <nav class="header__submenu<%= fullWidthSubmenu ? ' header__submenu--full' : '' %>" id="<%= `s-${slug.replace(/\//g, '_')}` %>">
+                      <%
+                      submenuOrder.forEach(({ submenu_slug, submenu }) => {
+                        if (('/' + slug) === submenu_slug) {
+                          const mapSubmenu = submenu.map(({subcategory_slug}) => subcategory_slug.replace('/', ''))
+                          subcategories.sort((a, b) => {
+                            const modelNameA = mapSubmenu.find(item => b.slug && b.slug.toLowerCase().includes(item && item.toLowerCase())) || '';
+                            const modelNameB = mapSubmenu.find(item => a.slug && a.slug.toLowerCase().includes(item && item.toLowerCase())) || '';
 
-                      const indexMenu = keysMenu.findIndex(menu => subcategory.name && subcategory.name.includes(menu))
+                            const indexA = mapSubmenu.findIndex(item => item && item.toLowerCase() === modelNameA.toLowerCase());
+                            const indexB = mapSubmenu.findIndex(item => item && item.toLowerCase() === modelNameB.toLowerCase());
+
+                            if (modelNameA === '' && modelNameB === '') {
+                              return 1; 
+                            } else if (modelNameA === '' && modelNameB !== '') {
+                              return -1
+                            } else if (modelNameA !== '' && modelNameB === '') {
+                              return 1
+                            }
+
+                            return indexB - indexA;
+                          })
+                        }
+                      })
+                      subcategories.forEach(subcategory => { %>
+                        <div id="sub-<%= subcategory._id %>">               
+                          <a class="subcategory" id="cd-<%= subcategory._id %>" href="/<%= subcategory.slug %>"><%= subcategory.name %></a>
+                          <% const thirdCategories = _.categories.filter(({ parent }) => parent && parent.slug === subcategory.slug) %>
+                          <%
+                            if (isAlphabeticalOrderSubmenu) {
+                              thirdCategories.sort((a, b)=> {
+                                return b.name > a.name ? -1 : 1
+                              })
+                            }
+                            const indexMenu = keysMenu.findIndex(menu => subcategory.name && subcategory.name.includes(menu === 'Apple' ? 'iPhone' : menu))
                             if (indexMenu > -1) {
                               const arrayMenu = brandsModel[keysMenu[indexMenu]]
                               thirdCategories.sort((a, b) => {
@@ -397,22 +364,42 @@ const hasAllDepartments = header.menu_all_departments
                               });
                               
                             }
-                    %>
-                    <nav class="header__submenu<%= fullWidthSubmenu ? ' header__submenu--full' : '' %>" id="<%= `s-${slug.replace(/\//g, '_')}` %>">
-                      <% subcategories.forEach(subcategory => { %>
-                        <div>               
-                          <a id="sd-<%= subcategory._id %>" href="/<%= subcategory.slug %>"><%= subcategory.name %></a>
-                          <% const thirdCategories = _.categories.filter(({ parent }) => parent && parent.slug === subcategory.slug) %>
-                          <%
-                            if (isAlphabeticalOrderSubmenu) {
-                              thirdCategories.sort((a, b)=> {
-                                return b.name > a.name ? -1 : 1
-                              })
-                            }
                           %>
-                          <% thirdCategories.forEach(thirdCategory => { %>
-                            <a id="td-<%= thirdCategory._id %>" class="header__submenu-subcategory" href="/<%= thirdCategory.slug %>">
+                          <% 
+
+                          submenuSubOrder.forEach(({ submenu_menu_slug, submenu_menu }) => {
+                          if (('/' + subcategory.slug) === submenu_menu_slug) {
+                            const mapSubmenu = submenu_menu.map(({subcategory_menu_slug}) => subcategory_menu_slug.replace('/', ''))
+                            thirdCategories.sort((a, b) => {
+                              const modelNameA = mapSubmenu.find(item => b.slug && b.slug.toLowerCase().includes(item && item.toLowerCase())) || '';
+                              const modelNameB = mapSubmenu.find(item => a.slug && a.slug.toLowerCase().includes(item && item.toLowerCase())) || '';
+
+                              const indexA = mapSubmenu.findIndex(item => item && item.toLowerCase() === modelNameA.toLowerCase());
+                              const indexB = mapSubmenu.findIndex(item => item && item.toLowerCase() === modelNameB.toLowerCase());
+
+                              if (modelNameA === '' && modelNameB === '') {
+                                return 1; 
+                              } else if (modelNameA === '' && modelNameB !== '') {
+                                return -1
+                              } else if (modelNameA !== '' && modelNameB === '') {
+                                return 1
+                              }
+
+                              return indexB - indexA;
+                            })
+                          }
+                        })
+                          
+                          thirdCategories.forEach(thirdCategory => {  
+                            const findCategoryThird = filters.find(({ filter_option }) => {
+                              return thirdCategory.name && thirdCategory.name.includes(filter_option)
+                            })
+                            %>
+                            <a id="cd-<%= thirdCategory._id %>" class="header__submenu-subcategory" href="/<%= thirdCategory.slug %>">
                               <%= thirdCategory.name %>
+                              <% if (findCategoryThird && findCategoryThird.is_new) { %>
+                                <span class="new-category">Novo</span>
+                              <% } %>
                             </a>
                           <% }) %>
                         </div>
@@ -439,4 +426,4 @@ const hasAllDepartments = header.menu_all_departments
       </div>
     </div>
   </div>
-<% } %> 
+<% } %>

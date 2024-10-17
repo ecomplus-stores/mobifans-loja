@@ -2,6 +2,18 @@
 // load menu options and contacts from content
 const menu = _.cms('menu') || {}
 const contacts = _.cms('contacts') || {}
+const header = _.cms('header') || {}
+const categoriesHeader = header.categories_list.featured.map(item => {
+  return item.substring(0, item.indexOf('?'))
+})
+
+const { filters } = header['filter-list']
+const submenuOrder = menu['submenu_menu_order'] || []
+
+const brandsModel = _.lodash.groupBy(filters, ({ filter_grid_model }) => {
+  return !filter_grid_model ? '_' : filter_grid_model
+})
+const keysMenu = Object.keys(brandsModel) || []
 
 // some social networks handled by contacts
 const networksWithColors = [
@@ -15,9 +27,12 @@ const networksWithColors = [
 const allCategories = menu.alphabetical_order
   ? _.lodash.sortBy(_.categories, ['name'])
   : _.categories
-const categoryParents = _.lodash.groupBy(allCategories, ({ parent }) => {
+
+
+let categoryParents = _.lodash.groupBy(allCategories, ({ parent }) => {
   return !parent || !parent.slug ? '_' : parent.slug
 })
+categoryParents['_'] = categoryParents['_'].filter(({slug}) => menu.sort_categories.includes(slug))
 const getSubmenuId = slug => `a-${slug.replace(/\//g, '_')}`
 
 const mainCategories = categoryParents._
@@ -31,6 +46,13 @@ if (mainCategories) {
         const category = mainCategories[categoryIndex]
         mainCategories.splice(categoryIndex, 1)
         mainCategories.unshift(category)
+      } else {
+        mainCategories.unshift({
+          _id: _.ecomUtils.randomObjectId(),
+          name: (slug[0].toUpperCase() + slug.substring(1)).replaceAll('-', ' '),
+          slug,
+          ...allCategories.find(category => category.slug === slug)
+        })
       }
     }
   }
@@ -39,16 +61,69 @@ if (mainCategories) {
 
 <aside id="menu" class="menu shadow">
   <nav class="accordion" id="accordion-menu">
-    <button
-      class="menu__btn menu__btn--close btn"
-      type="button"
-      onclick="toggleSidenav()"
-      aria-label="Toggle Side Navigation"
-    >
-      <i class="i-times"></i>
-    </button>
+    <div class="menu-topo">
+      <span><%= menu['menu-comprar'] && menu['menu-comprar'].title %></span>
+      <button
+        class="menu__btn menu__btn--close btn"
+        type="button"
+        onclick="toggleSidenav()"
+        aria-label="Toggle Side Navigation"
+      >
+        <i class="i-times"></i>
+      </button>
+    </div>
+    <div
+          class="d-none d-lg-block col-12 col-lg collapse show"
+          id="search-bar"
+        >
+          <form
+            class="header__search mt-2 mt-md-3 mt-lg-0"
+            id="search-form"
+            action="/search"
+            method="get"
+          >
+            <input
+              type="search"
+              name="term"
+              placeholder="Encontre sua capa"
+              aria-label="<%= _.dictionary('searchProducts') %>"
+              class="header__search-input form-control"
+              id="search-input"
+            >
+            <button
+              type="submit"
+              class="header__search-btn"
+              aria-label="<%= _.dictionary('searchProducts') %>"
+            >
+              <i class="i-search"></i>
+            </button>
+            <div id="instant-search">
+              <!--
+                `InstantSearch` should be open on input focus:
+                https://developers.e-com.plus/storefront/@ecomplus/storefront-components/docs/InstantSearch.html
+              -->
+            </div>
+          </form>
 
-    <% for (const slug in categoryParents) { %>
+          <% if (_.settings.domain) { %>
+            <script type="application/ld+json"><%-
+              JSON.stringify({
+                '@context': 'http://schema.org',
+                '@type': 'WebSite',
+                url: `https://${_.settings.domain}/`,
+                potentialAction: {
+                  '@type': 'SearchAction',
+                  target: `https://${_.settings.domain}/search?term={search_term_string}`,
+                  'query-input': 'required name=search_term_string'
+                }
+              })
+            %></script>
+          <% } %>
+        </div>
+
+    <% for (const slug in categoryParents) {
+      %>
+      
       <% if (categoryParents.hasOwnProperty(slug)) { %>
         <% let category, parent %>
         <div
@@ -85,10 +160,79 @@ if (mainCategories) {
             >
               <i class="i-arrow-left"></i>
             </button>
-          <% } %>
+          <% }
+          %>
 
           <div class="menu__list">
-            <% categoryParents[slug].forEach((subcategory, index) => { %>
+            <% 
+            const listCategories = categoryParents[slug]
+            if (slug === 'apple') {
+              const arrayMenu = brandsModel['Apple']
+              listCategories.sort((a, b) => {
+                const modelNameA = arrayMenu.find(item => b.name && b.name.toLowerCase().includes(item.filter_option && item.filter_option.toLowerCase()))?.filter_option || '';
+                const modelNameB = arrayMenu.find(item => a.name && a.name.toLowerCase().includes(item.filter_option && item.filter_option.toLowerCase()))?.filter_option || '';
+
+                const indexA = arrayMenu.findIndex(item => item.filter_option && item.filter_option.toLowerCase() === modelNameA.toLowerCase());
+                const indexB = arrayMenu.findIndex(item => item.filter_option && item.filter_option.toLowerCase() === modelNameB.toLowerCase());
+
+                if (modelNameA === '' && modelNameB === '') {
+                  return 1; 
+                } else if (modelNameA === '' && modelNameB !== '') {
+                  return -1
+                } else if (modelNameA !== '' && modelNameB === '') {
+                  return 1
+                }
+
+                return indexB - indexA;
+              });
+            } else if (slug === 'samsung') {
+              const arrayMenu = brandsModel['Samsung']
+              listCategories.sort((a, b) => {
+                const modelNameA = arrayMenu.find(item => b.name && b.name.toLowerCase().includes(item.filter_option && item.filter_option.toLowerCase()))?.filter_option || '';
+                const modelNameB = arrayMenu.find(item => a.name && a.name.toLowerCase().includes(item.filter_option && item.filter_option.toLowerCase()))?.filter_option || '';
+
+                const indexA = arrayMenu.findIndex(item => item.filter_option && item.filter_option.toLowerCase() === modelNameA.toLowerCase());
+                const indexB = arrayMenu.findIndex(item => item.filter_option && item.filter_option.toLowerCase() === modelNameB.toLowerCase());
+
+                if (modelNameA === '' && modelNameB === '') {
+                  return 1; 
+                } else if (modelNameA === '' && modelNameB !== '') {
+                  return -1
+                } else if (modelNameA !== '' && modelNameB === '') {
+                  return 1
+                }
+
+                return indexB - indexA;
+              });
+            }  else if (slug === 'android') {
+            }
+            submenuOrder.forEach(({ submenu_menu_slug, submenu_menu }) => {
+              if (('/' + slug) === submenu_menu_slug) {
+                const mapSubmenu = submenu_menu.map(({subcategory_menu_slug}) => subcategory_menu_slug.replace('/', ''))
+                listCategories.sort((a, b) => {
+                  const modelNameA = mapSubmenu.find(item => b.slug && b.slug.toLowerCase().includes(item && item.toLowerCase())) || '';
+                  const modelNameB = mapSubmenu.find(item => a.slug && a.slug.toLowerCase().includes(item && item.toLowerCase())) || '';
+
+                  const indexA = mapSubmenu.findIndex(item => item && item.toLowerCase() === modelNameA.toLowerCase());
+                  const indexB = mapSubmenu.findIndex(item => item && item.toLowerCase() === modelNameB.toLowerCase());
+
+                  if (modelNameA === '' && modelNameB === '') {
+                    return 1; 
+                  } else if (modelNameA === '' && modelNameB !== '') {
+                    return -1
+                  } else if (modelNameA !== '' && modelNameB === '') {
+                    return 1
+                  }
+
+                  return indexB - indexA;
+                })
+              }
+            })
+            listCategories.forEach((subcategory, index) => { 
+              const findCategorySub = filters.find(({ filter_option }) => {
+                return subcategory.name && subcategory.name.includes(filter_option)
+              })
+              %>
               <% const hasSubmenu = Array.isArray(categoryParents[subcategory.slug]) %>
               <a
                 <% if (hasSubmenu) {
@@ -103,27 +247,41 @@ if (mainCategories) {
                   href="/<%= subcategory.slug %>"
                 <% } %>
                 id="c-<%= subcategory._id %>"
-                class="menu__item"
+                class="menu__item<%- hasSubmenu ? ' has-subcategory' : ' xbbbcbcbc' %>"
               >
-                <% if (subcategory.icon) { %>
-                  <span class="menu__item-icon">
-                    <img
-                      data-src="<%= subcategory.icon.url %>"
-                      alt="<%= subcategory.icon.alt || subcategory.name %>"
-                      class="lozad"
-                      data-preload="<%= (index * 200) %>"
-                    >
+                  <span>
+                    <% 
+                      if (subcategory.icon && subcategory.icon.url) {
+                        %>
+                        <span class="menu__item-icon">
+                          <img
+                            data-src="<%= subcategory.icon.url %>"
+                            alt="<%= subcategory.icon.alt %>"
+                            class="lozad"
+                            data-preload="<%= (index * 200) %>"
+                          />
+                        </span>
+                      <% } %>
+                      <span>
+                        <%= subcategory.name %>
+                      </span>
                   </span>
+                
+                <% if (findCategorySub && findCategorySub.is_new) { %>
+                    <span class="new-category">Novo</span>
                 <% } %>
-                <span>
-                  <%= subcategory.name %>
-                </span>
+                <% if (hasSubmenu) { %>
+                  <i class="i-chevron-right"></i>
+                <% } else if (!hasSubmenu && !(findCategorySub && findCategorySub.is_new) && subcategory.icon && subcategory.icon.url) { %>
+                  <small> </small>
+                <% } %>
               </a>
             <% }) %>
+            
           </div>
 
-          <% if (category && category.slug) { %>
-            <a href="/<%= category.slug %>" class="menu__link">
+          <% if (category && category.slug && (categoriesHeader.indexOf('/' + category.slug) > -1)) { %>
+            <a href="/<%= category.slug %>" class="menu__link see-all">
               <%= _.dictionary('seeAll$1Category').replace('$1', category.name) %>
             </a>
           <% } %>
