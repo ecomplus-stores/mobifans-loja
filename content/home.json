@@ -59,15 +59,6 @@
       "sort": "sales"
     },
     {
-      "type": "collection-shelf",
-      "shuffle": true,
-      "limit": 8,
-      "collection_id": "615ee50428ace502ae990adf:categories:Capas com corrente:/capas-com-corrente",
-      "sort": "views",
-      "link": "",
-      "title": "Capas Corrente Coloridas"
-    },
-    {
       "type": "banners-grid",
       "banners": [
         {
