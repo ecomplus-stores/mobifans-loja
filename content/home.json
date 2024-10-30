@@ -9,6 +9,12 @@
         {
           "start": "",
           "end": "",
+          "img": "/img/uploads/b2c-banner_desk-blac_november.webp",
+          "mobile_img": "/img/uploads/b2c-banner_mobile-blac_november.webp"
+        },
+        {
+          "start": "",
+          "end": "",
           "img": "/img/uploads/mobi-banner-iphone16-desk.webp",
           "mobile_img": "/img/uploads/mobi-banner-iphone16-mobile.webp",
           "link": "https://mobifans.com.br/iphone-16",
