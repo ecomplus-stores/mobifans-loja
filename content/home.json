@@ -9,6 +9,14 @@
         {
           "start": "",
           "end": "",
+          "img": "/img/uploads/mobi-banner_desk-blac_week.webp",
+          "mobile_img": "/img/uploads/mobi-banner_mobile-blac_week.webp",
+          "link": "https://mobifans.com.br/capas",
+          "alt": "Black Week Mobifans 2024"
+        },
+        {
+          "start": "",
+          "end": "",
           "img": "/img/uploads/mobi-banner-iphone16-desk.webp",
           "mobile_img": "/img/uploads/mobi-banner-iphone16-mobile.webp",
           "link": "https://mobifans.com.br/iphone-16",
