@@ -17,6 +17,22 @@
         {
           "start": "",
           "end": "",
+          "img": "/img/uploads/mobi_banner_space-desk.webp",
+          "alt": "Banner Capas Impactor Sp4ce enfatizando a proteção avançada de até 4m",
+          "link": "https://mobifans.com.br/capa-impactor-sp4ce-apple-iphone-16",
+          "mobile_img": "/img/uploads/mobi_banner_space-mobile.webp"
+        },
+        {
+          "start": "",
+          "end": "",
+          "img": "/img/uploads/mobi_banner_air-mobile.webp",
+          "alt": "Banner lifestyle Capa Impactor Air enfatizando a proteção avançada de 4m de altura",
+          "mobile_img": "/img/uploads/mobi_banner_air-mobile_1.webp",
+          "link": "https://mobifans.com.br/capa-impactor-air-apple-iphone-16"
+        },
+        {
+          "start": "",
+          "end": "",
           "img": "/img/uploads/mobi-banner-iphone16-desk.webp",
           "mobile_img": "/img/uploads/mobi-banner-iphone16-mobile.webp",
           "link": "https://mobifans.com.br/iphone-16",
