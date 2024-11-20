@@ -160,7 +160,7 @@ const themeCustom = _.settings.theme.custom || ''
 
         <div class="mt-4 mb-3">
           <div class="footer__title">
-            Pagamento
+            Formas de pagamento
           </div>
           <p class="footer__payment-methods">
             <% Object.keys(footer.payment_methods).forEach(method => { %>
@@ -170,7 +170,7 @@ const themeCustom = _.settings.theme.custom || ''
             <% }) %>
           </p>
           <div class="footer__title">
-            Segurança
+            Certificações e segurança
           </div>
           <div class="footer__stamps">
             <%- await include(`@/sections/stamps`, { _, opt: { stamps: footer.stamps } }) %>
