@@ -84,11 +84,11 @@
       "link": "https://transparencyreport.google.com/safe-browsing/search?url=mobifans.com.br"
     },
     {
-      "src": "/img/uploads/selo-norton-secured-1-.webp",
+      "src": "/img/uploads/icone_branco_norton.webp",
       "link": "https://safeweb.norton.com/report/show?url=mobifans.com.br"
     },
     {
-      "src": "/img/uploads/selo-ssl-1-.webp",
+      "src": "/img/uploads/icone_branco_ssl.webp",
       "link": "https://www.ssllabs.com/ssltest/analyze.html?d=mobifans.com.br",
       "alt": " "
     }
@@ -112,5 +112,5 @@
     "amex": true,
     "itau": false
   },
-  "credits": "Pulz Comércio de Importados Eireli - CNPJ: 06.051.394/0001-93 © 2022 - Todos os direitos reservados."
+  "credits": "Pulz Comércio de Importados Eireli - CNPJ: 06.051.394/0001-93 © 2024 - Todos os direitos reservados."
 }
